@@ -30,9 +30,9 @@ public interface IUIAutomationTextRange extends IUnknown {
      */
     Guid.IID IID = new Guid.IID("{A543CC6A-F4AE-494B-8239-C814481187A8}");
 
-    int AddRef();
-    int Release();
-    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
+//    int AddRef();
+//    int Release();
+//    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
 
     int select();
     int getText(Integer maxLength, PointerByReference sr);

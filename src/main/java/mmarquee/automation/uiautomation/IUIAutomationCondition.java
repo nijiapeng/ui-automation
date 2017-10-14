@@ -31,7 +31,7 @@ public interface IUIAutomationCondition extends IUnknown {
     Guid.IID IID = new Guid.IID(
             "352FFBA8-0973-437C-A61F-F64CAFD81DF9");
 
-    int AddRef();
-    int Release();
-    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
+//    int AddRef();
+//    int Release();
+//    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
 }

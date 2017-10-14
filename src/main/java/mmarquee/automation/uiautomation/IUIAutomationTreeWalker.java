@@ -33,9 +33,9 @@ public interface IUIAutomationTreeWalker extends IUnknown {
     Guid.IID IID = new Guid.IID(
             "{4042C624-389C-4AFC-A630-9DF854A541FC}");
 
-    int AddRef();
-    int Release();
-    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
+//    int AddRef();
+//    int Release();
+//    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
 
     int getParentElement(Pointer element, PointerByReference parent);
     int getFirstChildElement(Pointer element, PointerByReference first);

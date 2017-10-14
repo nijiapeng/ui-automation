@@ -33,9 +33,9 @@ public interface IUIAutomationInvokePattern extends IUnknown {
     Guid.IID IID = new Guid.IID(
             "{FB377FBE-8EA6-46D5-9C73-6499642D3059}");
 
-    int AddRef();
-    int Release();
-    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
+//    int AddRef();
+//    int Release();
+//    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
 
     int invoke();
 }

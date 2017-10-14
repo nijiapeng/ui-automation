@@ -32,9 +32,9 @@ public interface IUIAutomationTextRangeArray extends IUnknown {
      */
     Guid.IID IID = new Guid.IID("{CE4AE76A-E717-4C98-81EA-47371D028EB6}");
 
-    int AddRef();
-    int Release();
-    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
+//    int AddRef();
+ //   int Release();
+//    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
 
     int getLength(IntByReference ibr);
     int getElement(Integer index, PointerByReference element);

@@ -32,9 +32,9 @@ public interface IUIAutomationGridItemPattern extends IUnknown {
     Guid.IID IID = new Guid.IID(
             "{78F8EF57-66C3-4E09-BD7C-E79B2004894D}");
 
-    int AddRef();
-    int Release();
-    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
+//    int AddRef();
+//    int Release();
+//    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
 
     int getCurrentRow(IntByReference retVal);
     int getCurrentColumn(IntByReference retVal);
