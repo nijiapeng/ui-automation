@@ -4,7 +4,10 @@ import com.sun.jna.Function;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.COM.IUnknown;
 import com.sun.jna.platform.win32.Guid;
+import com.sun.jna.platform.win32.Variant;
+import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinNT;
+import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 
 /**
@@ -13,54 +16,32 @@ import com.sun.jna.ptr.PointerByReference;
  * @author Mark Humphreys
  * Date 12/09/2016.
  *
- * Use this like:
- * PointerByReference pbr=new PointerByReference();
- * HRESULT result=SomeCOMObject.QueryInterface(IID, pbr);
- * if(COMUtils.SUCCEEDED(result)) IUIAutomation3 iua=IUIAutomation3.Converter.PointerToInterface(pbr);
- *
  */
-//public interface IUIAutomation3 extends IUnknown {
-//    /**
-//     * The interface IID for QueryInterface et al
-//     */
-//    Guid.IID IID = new Guid.IID("{34723AFF-0C9D-49D0-9896-7AB52DF8CD8A}");
-//
-//    int AddRef();
-//    int Release();
-//    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
-//
-//    class Converter {
-//
-//        private static int UIAutomation3_Methods  = 66;
-//        // 0-2 IUnknown, 3-57 IUIAutomation, 58-63 = IUIAutomation2, 64-65 = IUIAutomation3
-//        private static Pointer myInterfacePointer;
-//
-//        public static IUIAutomation3 PointerToInterface(final PointerByReference ptr) {
-//            myInterfacePointer = ptr.getValue();
-//            Pointer vTablePointer = myInterfacePointer.getPointer(0);
-//
-  //          final Pointer[] vTable = new Pointer[UIAutomation3_Methods];
-    //        vTablePointer.read(0, vTable, 0, vTable.length);
-      //      return new IUIAutomation3() {
-//
-  //              @Override
-    //            public WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference) {
-      //              Function f = Function.getFunction(vTable[0], Function.ALT_CONVENTION);
-        //            return new WinNT.HRESULT(f.invokeInt(new Object[]{myInterfacePointer, byValue, pointerByReference}));
-          //      }
-//
-  //              @Override
-    //            public int AddRef() {
-      //              Function f = Function.getFunction(vTable[1], Function.ALT_CONVENTION);
-        //            return f.invokeInt(new Object[]{myInterfacePointer});
-          //      }
-//
-  //              public int Release() {
-    //                Function f = Function.getFunction(vTable[2], Function.ALT_CONVENTION);
-      //              return f.invokeInt(new Object[]{myInterfacePointer});
-        //        }
-          //  };
-//        }
-//    }
-//}
+public interface IUIAutomation3 extends IUnknown {
+    /**
+     * The interface IID for QueryInterface et al
+     */
+    Guid.IID IID = new Guid.IID("{73D768DA-9B51-4B89-936E-C209290973E7}");
+
+    int AddRef();
+    int Release();
+    WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference);
+
+    int getRootElement(PointerByReference root);
+    int getElementFromHandle(WinDef.HWND hwnd, PointerByReference element);
+    int createAndCondition(Pointer condition1, Pointer condition2, PointerByReference condition);
+    int createPropertyCondition(int propertyId, Variant.VARIANT.ByValue value, PointerByReference condition);
+    int createOrCondition(Pointer condition1, Pointer condition2, PointerByReference condition);
+    int createTrueCondition(PointerByReference condition);
+    int createFalseCondition(PointerByReference condition);
+    int compareElements(Pointer element1, Pointer element2, IntByReference same);
+    int createNotCondition(Pointer condition, PointerByReference retval);
+    int getPatternProgrammaticName(int patternId, PointerByReference retval);
+    int getFocusedElement(PointerByReference element);
+    int createTreeWalker(PointerByReference condition, PointerByReference walker);
+    int getControlViewWalker(PointerByReference walker);
+    int addAutomationEventHandler(IntByReference eventId, TreeScope scope, Pointer element, PointerByReference cacheRequest, PointerByReference handler);
+    int removeAutomationEventHandler(IntByReference eventId, PointerByReference element, PointerByReference handler);
+    int elementFromPoint(WinDef.POINT pt, PointerByReference element);
+}
 
