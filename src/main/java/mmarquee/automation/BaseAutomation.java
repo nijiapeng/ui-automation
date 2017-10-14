@@ -22,10 +22,7 @@ import com.sun.jna.platform.win32.Guid;
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
-import mmarquee.automation.uiautomation.IUIAutomationElement3Converter;
-import mmarquee.automation.uiautomation.IUIAutomationElementArray;
-import mmarquee.automation.uiautomation.IUIAutomationElementArrayConverter;
+import mmarquee.automation.uiautomation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +64,26 @@ public abstract class BaseAutomation {
         }
 
         return IUIAutomationElement3Converter.PointerToInterface(pbr);
+    }
+
+    /**
+     * Convert a raw PointerByReference to a IUIAutomationElement2.
+     *
+     * @param pbr The raw pointer.
+     * @return The IUIAutomationElement2.
+     * @throws AutomationException Automation library has thrown an error.
+     */
+    public IUIAutomationElement2 getAutomationElementFromReferenceLegacy(final PointerByReference pbr)
+            throws AutomationException {
+        Unknown uElement = makeUnknown(pbr.getValue());
+
+        WinNT.HRESULT result0 = uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement2.IID), pbr);
+
+        if (COMUtils.FAILED(result0)) {
+            throw new AutomationException(result0.intValue());
+        }
+
+        return IUIAutomationElement2Converter.PointerToInterface(pbr);
     }
 
     /**
