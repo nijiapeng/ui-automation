@@ -22,6 +22,7 @@ import mmarquee.automation.pattern.Selection;
 import mmarquee.automation.pattern.Table;
 import mmarquee.automation.pattern.Value;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.apache.log4j.Logger;
 import org.junit.Assume;
 import org.junit.BeforeClass;
@@ -64,7 +65,7 @@ public class AutomationDataGridTest2 {
         Table table = Mockito.mock(Table.class);
         Selection selection = Mockito.mock(Selection.class);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -91,7 +92,7 @@ public class AutomationDataGridTest2 {
 
         when(table.getCurrentColumnHeaders()).thenReturn(elementList);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -122,7 +123,7 @@ public class AutomationDataGridTest2 {
         when(table.getCurrentColumnHeaders()).thenReturn(elementList);
         when(grid.columnCount()).thenReturn(elementList.size());
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -151,7 +152,7 @@ public class AutomationDataGridTest2 {
         when(table.getCurrentColumnHeaders()).thenReturn(elementList);
         when(grid.columnCount()).thenReturn(elementList.size());
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -182,7 +183,7 @@ public class AutomationDataGridTest2 {
         when(table.getCurrentColumnHeaders()).thenReturn(elementList);
         when(grid.columnCount()).thenReturn(elementList.size());
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -207,7 +208,7 @@ public class AutomationDataGridTest2 {
         when(grid.getItem(1,1)).thenReturn(element2);
         when(grid.rowCount()).thenReturn(2);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -232,7 +233,7 @@ public class AutomationDataGridTest2 {
         when(grid.getItem(1,1)).thenReturn(element2);
         when(grid.rowCount()).thenReturn(2);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -257,7 +258,7 @@ public class AutomationDataGridTest2 {
         when(grid.getItem(1,1)).thenReturn(element2);
         when(grid.rowCount()).thenReturn(2);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -282,7 +283,7 @@ public class AutomationDataGridTest2 {
         when(grid.getItem(1,1)).thenReturn(element2);
         when(grid.rowCount()).thenReturn(2);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);

@@ -19,6 +19,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.UIAutomation;
 import mmarquee.automation.pattern.Value;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.mockito.Mockito;
 import static org.junit.Assert.assertTrue;
@@ -36,7 +37,7 @@ public class AutomationCalendarTest {
 
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         UIAutomation instance = new UIAutomation(mocked_automation);
 
@@ -54,7 +55,7 @@ public class AutomationCalendarTest {
 
         when(pattern.value()).thenReturn("VALUE");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         UIAutomation instance = new UIAutomation(mocked_automation);
 

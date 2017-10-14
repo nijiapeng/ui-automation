@@ -19,6 +19,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.UIAutomation;
 import mmarquee.automation.pattern.Range;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -44,7 +45,7 @@ public class AutomationSliderTest {
 
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationSlider slider = new AutomationSlider(element, pattern, instance);
@@ -61,7 +62,7 @@ public class AutomationSliderTest {
 
         when(pattern.getValue()).thenReturn(79.0);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationSlider slider = new AutomationSlider(element, pattern, instance);
@@ -76,7 +77,7 @@ public class AutomationSliderTest {
         AutomationElement element = Mockito.mock(AutomationElement.class);
         Range pattern = Mockito.mock(Range.class);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationSlider slider = new AutomationSlider(element, pattern, instance);

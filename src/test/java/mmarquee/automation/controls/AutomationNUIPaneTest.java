@@ -24,6 +24,7 @@ import mmarquee.automation.UIAutomation;
 import mmarquee.automation.controls.AutomationNUIPane;
 import mmarquee.automation.pattern.ItemContainer;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -53,7 +54,7 @@ public class AutomationNUIPaneTest {
         when(element.getClassName()).thenReturn(AutomationNUIPane.CLASS_NAME);
         when(element.getName()).thenReturn("");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         ItemContainer container = Mockito.mock(ItemContainer.class);

@@ -21,7 +21,7 @@ import mmarquee.automation.UIAutomation;
 import mmarquee.automation.pattern.ItemContainer;
 import mmarquee.automation.pattern.PatternNotFoundException;
 import mmarquee.automation.pattern.Window;
-import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -80,7 +80,7 @@ public class AutomationWindowTest {
 
         when(window.isModal()).thenReturn(true);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationWindow windw = new AutomationWindow(element, window, container, instance);
@@ -95,7 +95,7 @@ public class AutomationWindowTest {
 
         when(window.isModal()).thenReturn(true);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationWindow windw = new AutomationWindow(element, window, container, instance);
@@ -109,7 +109,7 @@ public class AutomationWindowTest {
 
         when(targetElement.findAll(any(), any())).thenReturn(menus);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationWindow windw = new AutomationWindow(element, window, container);
@@ -123,7 +123,7 @@ public class AutomationWindowTest {
 
         when(targetElement.findAll(any(), any())).thenReturn(menus);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationWindow windw = new AutomationWindow(element, window, container);
@@ -137,7 +137,7 @@ public class AutomationWindowTest {
 
         when(targetElement.findAll(any(), any())).thenReturn(menus);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationWindow windw = new AutomationWindow(element, window, container);
@@ -150,7 +150,7 @@ public class AutomationWindowTest {
             throws AutomationException, PatternNotFoundException {
         when(window.isModal()).thenReturn(true);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationWindow windw = new AutomationWindow(element, window, container, instance);
@@ -163,7 +163,7 @@ public class AutomationWindowTest {
             throws AutomationException, PatternNotFoundException {
         when(window.isModal()).thenReturn(false);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationWindow windw = new AutomationWindow(element, window, container, instance);

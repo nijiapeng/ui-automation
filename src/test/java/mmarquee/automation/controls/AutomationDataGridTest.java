@@ -22,6 +22,7 @@ import mmarquee.automation.pattern.Selection;
 import mmarquee.automation.pattern.Table;
 import mmarquee.automation.pattern.Value;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import mmarquee.automation.uiautomation.RowOrColumnMajor;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class AutomationDataGridTest {
 
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -72,7 +73,7 @@ public class AutomationDataGridTest {
 
         when(value.value()).thenReturn("VALUE");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -91,7 +92,7 @@ public class AutomationDataGridTest {
 
         when(table.getRowOrColumnMajor()).thenReturn(RowOrColumnMajor.RowMajor);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);
@@ -110,7 +111,7 @@ public class AutomationDataGridTest {
 
         when(value.isReadOnly()).thenReturn(true);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationDataGrid dataGrid = new AutomationDataGrid(element, value, grid, table, selection, instance);

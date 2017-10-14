@@ -20,6 +20,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.Ole32Wrapper;
 import mmarquee.automation.UIAutomation;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -42,7 +43,7 @@ public class AutomationAppBarTest {
     @Test
     public void testGetName_Gets_Name_From_Element() throws Exception {
         AutomationElement element = Mockito.mock(AutomationElement.class);
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         when(mocked_automation.createTrueCondition(isA(PointerByReference.class))).thenReturn(0);
 

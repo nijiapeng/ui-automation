@@ -19,6 +19,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.UIAutomation;
 import mmarquee.automation.pattern.Value;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -40,7 +41,7 @@ public class AutomationEditBoxTest {
         Value value = Mockito.mock(Value.class);
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationEditBox ctrl = new AutomationEditBox(element, value, instance);
@@ -56,7 +57,7 @@ public class AutomationEditBoxTest {
         Value value = Mockito.mock(Value.class);
         when(value.value()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationEditBox ctrl = new AutomationEditBox(element, value, instance);
@@ -72,7 +73,7 @@ public class AutomationEditBoxTest {
         Value value = Mockito.mock(Value.class);
         when(value.isReadOnly()).thenReturn(true);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationEditBox ctrl = new AutomationEditBox(element, value, instance);
@@ -88,7 +89,7 @@ public class AutomationEditBoxTest {
         Value value = Mockito.mock(Value.class);
         when(value.isReadOnly()).thenReturn(true);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationEditBox ctrl = new AutomationEditBox(element, value, instance);
@@ -104,7 +105,7 @@ public class AutomationEditBoxTest {
         Value value = Mockito.mock(Value.class);
         //when(value.setValue(anyString())).thenReturn(true);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationEditBox ctrl = new AutomationEditBox(element, value, instance);

@@ -8,6 +8,7 @@ import mmarquee.automation.pattern.ItemContainer;
 import mmarquee.automation.pattern.PatternNotFoundException;
 import mmarquee.automation.pattern.Window;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -59,7 +60,7 @@ public class AutomationApplicationTest {
             throws AutomationException, PatternNotFoundException {
 
         AutomationElement element = Mockito.mock(AutomationElement.class);
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         UIAutomation instance = new UIAutomation(mocked_automation);
 
@@ -77,7 +78,7 @@ public class AutomationApplicationTest {
     public void testSetAttached_Set_To_False() throws Exception {
 
         AutomationElement element = Mockito.mock(AutomationElement.class);
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         UIAutomation instance = new UIAutomation(mocked_automation);
 
@@ -90,7 +91,7 @@ public class AutomationApplicationTest {
     public void testSetAttached_Set_To_True() throws Exception {
 
         AutomationElement element = Mockito.mock(AutomationElement.class);
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         UIAutomation instance = new UIAutomation(mocked_automation);
         AutomationApplication app = new AutomationApplication(element, handle, true, instance);

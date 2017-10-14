@@ -19,6 +19,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.UIAutomation;
 import mmarquee.automation.pattern.Range;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -43,7 +44,7 @@ public class AutomationProgressBarTest {
 
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationProgressBar bar = new AutomationProgressBar(element, range, instance);
@@ -60,7 +61,7 @@ public class AutomationProgressBarTest {
 
         when(range.getValue()).thenReturn(99.9);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationProgressBar bar = new AutomationProgressBar(element, range, instance);
@@ -75,7 +76,7 @@ public class AutomationProgressBarTest {
         AutomationElement element = Mockito.mock(AutomationElement.class);
         Range range = Mockito.mock(Range.class);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationProgressBar bar = new AutomationProgressBar(element, range, instance);

@@ -53,7 +53,7 @@ public class UIAutomation extends BaseAutomation {
      */
     private IUIAutomation automation;
 
-    /*final*/ static int FIND_DESKTOP_ATTEMPTS = 25; // not final to be set in tests
+    static int FIND_DESKTOP_ATTEMPTS = 25;
 
     /**
      * Created for test, to allow mocking.

@@ -4,6 +4,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.UIAutomation;
 import mmarquee.automation.pattern.Value;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -28,7 +29,7 @@ public class AutomationTextBoxTest {
         Value value = Mockito.mock(Value.class);
         when(value.value()).thenReturn("VALUE");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationTextBox ctrl = new AutomationTextBox(element, value, instance);
@@ -45,7 +46,7 @@ public class AutomationTextBoxTest {
         Value value = Mockito.mock(Value.class);
         when(value.value()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationTextBox ctrl = new AutomationTextBox(element, value, instance);

@@ -19,6 +19,7 @@ import mmarquee.automation.*;
 import mmarquee.automation.pattern.ItemContainer;
 import mmarquee.automation.pattern.SelectionItem;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -67,7 +68,7 @@ public class AutomationTabTest {
 
         ItemContainer container = Mockito.mock(ItemContainer.class);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationTab ctrl = new AutomationTab(element, container, instance);
@@ -118,7 +119,7 @@ public class AutomationTabTest {
 
         ItemContainer container = Mockito.mock(ItemContainer.class);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationTab ctrl = new AutomationTab(element, container, instance);

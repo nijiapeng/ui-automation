@@ -19,6 +19,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.UIAutomation;
 import mmarquee.automation.pattern.Value;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -37,7 +38,7 @@ public class AutomationPasswordEditBoxTest {
 
         when(value.value()).thenReturn("VALUE");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationPasswordEditBox control = new AutomationPasswordEditBox(element, value, instance);
@@ -54,7 +55,7 @@ public class AutomationPasswordEditBoxTest {
         
         when(element.getClassName()).thenReturn(AutomationPasswordEditBox.CLASS_NAME);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationPasswordEditBox control = new AutomationPasswordEditBox(element, value, instance);

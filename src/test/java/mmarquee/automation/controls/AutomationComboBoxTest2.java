@@ -22,6 +22,7 @@ import mmarquee.automation.pattern.PatternNotFoundException;
 import mmarquee.automation.pattern.Selection;
 import mmarquee.automation.pattern.Value;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import mmarquee.automation.uiautomation.TreeScope;
 import org.junit.Assume;
@@ -286,7 +287,7 @@ public class AutomationComboBoxTest2 {
 
         when(selection.getCurrentSelection()).thenReturn(list);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -304,7 +305,7 @@ public class AutomationComboBoxTest2 {
 
         when(selection.getCurrentSelection()).thenReturn(list);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);

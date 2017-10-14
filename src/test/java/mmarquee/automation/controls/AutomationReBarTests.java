@@ -20,6 +20,7 @@ import mmarquee.automation.UIAutomation;
 import mmarquee.automation.controls.AutomationReBar;
 import mmarquee.automation.pattern.ItemContainer;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -52,7 +53,7 @@ public class AutomationReBarTests {
         when(element.getClassName()).thenReturn(AutomationReBar.CLASS_NAME);
         when(element.getName()).thenReturn("REBAR-01");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         ItemContainer container = Mockito.mock(ItemContainer.class);
@@ -73,7 +74,7 @@ public class AutomationReBarTests {
 
         ItemContainer container = Mockito.mock(ItemContainer.class);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationReBar pane = new AutomationReBar(element, container, instance);

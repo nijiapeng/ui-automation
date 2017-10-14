@@ -23,6 +23,7 @@ import com.sun.jna.ptr.PointerByReference;
 import mmarquee.automation.controls.AutomationApplication;
 import mmarquee.automation.pattern.PatternNotFoundException;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation2;
 import mmarquee.automation.utils.Utils;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,8 +61,8 @@ public class UIAutomationTest2 {
 
     @Test(expected = IOException.class)
     public void testLaunch_Throws_Exception_When_startProcess_Fails() throws Exception {
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
-        UIAutomation local_instance = new UIAutomation(mocked_automation);
+        IUIAutomation2 mocked_automation = Mockito.mock(IUIAutomation2.class);
+        UIAutomationLegacy local_instance = new UIAutomationLegacy(mocked_automation);
 
         PowerMockito.mockStatic(Utils.class);
 
@@ -73,18 +74,17 @@ public class UIAutomationTest2 {
     @Test(expected = AutomationException.class)
     public void testCreateFalseCondition_Throws_Exception_When_Automation_Returns_False()
             throws AutomationException {
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation2 mocked_automation = Mockito.mock(IUIAutomation2.class);
+        UIAutomationLegacy local_instance = new UIAutomationLegacy(mocked_automation);
 
         when(mocked_automation.createFalseCondition(isA(PointerByReference.class))).thenReturn(-1);
-
-        UIAutomation local_instance = new UIAutomation(mocked_automation);
 
         local_instance.createFalseCondition();
     }
 
     @Test
     public void testGetDesktopWindow_Succeeds_When_Window_Present() throws IOException, AutomationException, PatternNotFoundException {
-        IUIAutomation mocked = Mockito.mock(IUIAutomation.class);
+        IUIAutomation2 mocked = Mockito.mock(IUIAutomation2.class);
 
         Unknown mockUnknown = Mockito.mock(Unknown.class);
 
@@ -98,7 +98,7 @@ public class UIAutomationTest2 {
         when(mocked.createAndCondition(any(Pointer.class), any(Pointer.class), any(PointerByReference.class))).thenReturn(0);
         when(mocked.createPropertyCondition(any(Integer.class), any(Variant.VARIANT.ByValue.class), any(PointerByReference.class))).thenReturn(0);
 
-        UIAutomation local_instance = Mockito.mock(UIAutomation.class);
+        UIAutomationLegacy local_instance = Mockito.mock(UIAutomationLegacy.class);
 
         doReturn(mockUnknown)
                 .when(local_instance)

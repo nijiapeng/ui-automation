@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.List;
 
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.*;
 import org.mockito.Mockito;
 
@@ -429,7 +430,7 @@ public class UIAutomationTest extends BaseAutomationTest {
     @Test
     public void testCreateTrueCondition_Succeeds_When_Automation_Returns_True()
             throws AutomationException {
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         when(mocked_automation.createTrueCondition(isA(PointerByReference.class))).thenReturn(0);
 
@@ -441,7 +442,7 @@ public class UIAutomationTest extends BaseAutomationTest {
     @Test(expected = AutomationException.class)
     public void testCreateTrueCondition_Throws_Exception_When_Automation_Returns_False()
             throws AutomationException {
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         when(mocked_automation.createTrueCondition(isA(PointerByReference.class))).thenReturn(-1);
 
@@ -453,7 +454,7 @@ public class UIAutomationTest extends BaseAutomationTest {
     @Test(expected = AutomationException.class)
     public void testCreateNotCondition_Throws_Exception_When_Automation_Returns_False()
             throws AutomationException {
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         when(mocked_automation.createNotCondition(any(), any(PointerByReference.class))).thenReturn(-1);
 
@@ -468,7 +469,7 @@ public class UIAutomationTest extends BaseAutomationTest {
     @Ignore("Mocking fails - needs investigation")
     public void testCreateAndCondition_Throws_Exception_When_Automation_Returns_False()
             throws AutomationException {
-        IUIAutomation mocked = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked = Mockito.mock(IUIAutomation3.class);
 
         when(mocked.createAndCondition(any(Pointer.class), any(Pointer.class), any(PointerByReference.class))).thenReturn(-1);
 
@@ -481,7 +482,7 @@ public class UIAutomationTest extends BaseAutomationTest {
     @Ignore("Mocking seems to fail - needs investigation")
     public void testCreateOrCondition_Throws_Exception_When_Automation_Returns_False()
             throws AutomationException {
-        IUIAutomation mocked = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked = Mockito.mock(IUIAutomation3.class);
 
         when(mocked.createOrCondition(any(Pointer.class), any(Pointer.class), any(PointerByReference.class))).thenReturn(-1);
 

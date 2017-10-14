@@ -27,6 +27,7 @@ import java.util.List;
 
 import mmarquee.automation.*;
 import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -63,7 +64,7 @@ public class AutomationComboBoxTest {
 
     @Test
     public void testGetComboBox_Get_Name() throws Exception {
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
 
         UIAutomation instance = new UIAutomation(mocked_automation);
 
@@ -80,7 +81,7 @@ public class AutomationComboBoxTest {
     public void testGetComboBox_Get_Text() throws Exception {
         when(value.value()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -96,7 +97,7 @@ public class AutomationComboBoxTest {
 
         element.setElement(elem);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -108,7 +109,7 @@ public class AutomationComboBoxTest {
 
     @Test
     public void testSetText_Calls_setValue_From_Pattern() throws Exception {
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -122,7 +123,7 @@ public class AutomationComboBoxTest {
     public void testExpand_Calls_Expand_From_Pattern() throws Exception {
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -136,7 +137,7 @@ public class AutomationComboBoxTest {
     public void testExpand_Calls_Collapse_From_Pattern() throws Exception {
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -150,7 +151,7 @@ public class AutomationComboBoxTest {
     public void test_text_Calls_Value_From_Pattern() throws Exception {
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -165,7 +166,7 @@ public class AutomationComboBoxTest {
         List<AutomationElement> list = new ArrayList<>();
         when(selection.getCurrentSelection()).thenReturn(list);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);
@@ -180,7 +181,7 @@ public class AutomationComboBoxTest {
         List<AutomationElement> list = new ArrayList<>();
         when(selection.getCurrentSelection()).thenReturn(list);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationComboBox combo = new AutomationComboBox(element, collapse, value, selection, instance);

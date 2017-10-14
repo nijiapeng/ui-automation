@@ -3,7 +3,7 @@ package mmarquee.automation.controls;
 import mmarquee.automation.*;
 import mmarquee.automation.pattern.Invoke;
 import mmarquee.automation.pattern.PatternNotFoundException;
-import mmarquee.automation.uiautomation.IUIAutomation;
+import mmarquee.automation.uiautomation.IUIAutomation3;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -28,7 +28,7 @@ public class AutomationHyperlinkTest {
 
         when(element.getName()).thenReturn("NAME");
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationHyperlink link = new AutomationHyperlink(element, pattern, instance);
@@ -45,7 +45,7 @@ public class AutomationHyperlinkTest {
 
         when(element.getPropertyValue(PropertyID.IsInvokePatternAvailable.getValue())).thenReturn(1);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationHyperlink link = new AutomationHyperlink(element, pattern, instance);
@@ -62,7 +62,7 @@ public class AutomationHyperlinkTest {
 
         when(element.getPropertyValue(PropertyID.IsInvokePatternAvailable.getValue())).thenReturn(0);
 
-        IUIAutomation mocked_automation = Mockito.mock(IUIAutomation.class);
+        IUIAutomation3 mocked_automation = Mockito.mock(IUIAutomation3.class);
         UIAutomation instance = new UIAutomation(mocked_automation);
 
         AutomationHyperlink link = new AutomationHyperlink(element, pattern, instance);
