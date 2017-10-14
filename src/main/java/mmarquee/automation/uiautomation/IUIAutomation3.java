@@ -8,6 +8,8 @@ import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.PointerByReference;
 
 /**
+ * Automation interface for Windows 8.1 and above.
+ *
  * @author Mark Humphreys
  * Date 12/09/2016.
  *

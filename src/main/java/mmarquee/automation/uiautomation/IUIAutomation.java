@@ -28,6 +28,8 @@ import com.sun.jna.ptr.PointerByReference;
 import mmarquee.automation.structure.PointNativeLong;
 
 /**
+ * Automation interface for Windows 7 and above.
+ *
  * @author Mark Humphreys
  * Date 06/07/2016.
  *
