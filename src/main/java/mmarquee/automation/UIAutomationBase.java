@@ -1,0 +1,686 @@
+package mmarquee.automation;
+
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.*;
+import com.sun.jna.platform.win32.COM.COMUtils;
+import com.sun.jna.platform.win32.COM.Unknown;
+import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.PointerByReference;
+import mmarquee.automation.controls.AutomationApplication;
+import mmarquee.automation.controls.AutomationPanel;
+import mmarquee.automation.controls.AutomationWindow;
+import mmarquee.automation.controls.menu.AutomationMenu;
+import mmarquee.automation.pattern.PatternNotFoundException;
+import mmarquee.automation.uiautomation.*;
+import mmarquee.automation.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+/**
+ * The base automation wrapper.
+ *
+ * This implements the interfaces, etc that are available to both 'standard' and legacy automation.
+ *
+ * @author Mark Humphreys
+ * Date 15/10/2017.
+ *
+ */
+abstract class UIAutomationBase extends BaseAutomation {
+    /**
+     * Default number of retries to find a desktop element.
+     */
+    static int FIND_DESKTOP_ATTEMPTS = 25;
+
+    /**
+     * The root of all the element.
+     *
+     * This will usually be the Windows desktop.
+     */
+    protected AutomationElement rootElement;
+
+    /**
+     * Main automation interface.
+     */
+    protected IUIAutomation automation;
+
+    /**
+     * The logger.
+     */
+    protected Logger logger = Logger.getLogger(UIAutomation.class.getName());
+
+    /**
+     * The wrapper for Ole32 COM object.
+     */
+    protected static Ole32Wrapper Ole32 = null;
+
+    /**
+     * Gets the underlying unknown value of Ole32.
+     * @return Unknown The COM Unknown value.
+     */
+    Unknown getOle32Unknown() {
+        return Ole32.getUnknown();
+    }
+
+    /**
+     * Constructor for the base UIAutomation, standard to both 'normal' and legacy.
+     */
+    protected UIAutomationBase() {
+        Ole32 = new Ole32Wrapper();
+
+        PointerByReference pbr1 = new PointerByReference();
+
+        WinNT.HRESULT result = getOle32Unknown().QueryInterface(new Guid.REFIID(IUIAutomation.IID), pbr1);
+        if (COMUtils.SUCCEEDED(result)) {
+            this.automation = IUIAutomationConverter.PointerToInterface(pbr1);
+        }
+    }
+
+    /**
+     * Launches the application.
+     *
+     * @param command The command to be called.
+     * @return AutomationApplication that represents the application.
+     * @throws java.io.IOException Cannot start application?
+     * @throws AutomationException Automation library error.
+     */
+    public AutomationApplication launch(final String... command)
+            throws java.io.IOException, AutomationException {
+        Process process = Utils.startProcess(command);
+        return new AutomationApplication(rootElement, process, false);
+    }
+
+    /**
+     * Launches the application, from a given directory.
+     *
+     * @param command The command to be called.
+     * @return AutomationApplication that represents the application.
+     * @throws java.io.IOException Cannot start application?
+     * @throws AutomationException Automation library error.
+     */
+    public AutomationApplication launchWithDirectory(final String... command)
+            throws java.io.IOException, AutomationException {
+        Process process = Utils.startProcessWithWorkingDirectory(command);
+        return new AutomationApplication(rootElement, process, false);
+    }
+
+    /**
+     * Attaches to the application process.
+     *
+     * @param process Process to attach to.
+     * @return AutomationApplication that represents the application.
+     * @throws AutomationException Automation library error.
+     */
+    public AutomationApplication attach(final Process process)
+            throws AutomationException {
+        return new AutomationApplication(rootElement, process, true);
+    }
+
+    /**
+     * Attaches or launches the application.
+     *
+     * @param command Command to be started.
+     * @return AutomationApplication that represents the application.
+     * @throws java.lang.Exception Unable to find process.
+     */
+    public AutomationApplication launchOrAttach(final String... command)
+            throws Exception {
+        final Tlhelp32.PROCESSENTRY32.ByReference processEntry =
+                new Tlhelp32.PROCESSENTRY32.ByReference();
+
+        boolean found = Utils.findProcessEntry(processEntry, command);
+
+        if (!found) {
+            return this.launch(command);
+        } else {
+            WinNT.HANDLE handle = Utils.getHandleFromProcessEntry(processEntry);
+            return new AutomationApplication(rootElement, handle, true);
+        }
+    }
+
+    /**
+     * Attaches or launches the application.
+     *
+     * @param command Command to be started.
+     * @return AutomationApplication that represents the application.
+     * @throws java.lang.Exception Unable to find process.
+     */
+    public AutomationApplication launchWithWorkingDirectoryOrAttach(final String... command)
+            throws Exception {
+        final Tlhelp32.PROCESSENTRY32.ByReference processEntry =
+                new Tlhelp32.PROCESSENTRY32.ByReference();
+
+        boolean found = Utils.findProcessEntry(processEntry, command);
+
+        if (!found) {
+            return this.launchWithDirectory(command);
+        } else {
+            WinNT.HANDLE handle = Utils.getHandleFromProcessEntry(processEntry);
+            return new AutomationApplication(rootElement, handle, true);
+        }
+    }
+
+    /**
+     * Gets the main desktop object.
+     *
+     * @return AutomationPanel The found object.
+     * @throws ElementNotFoundException Element is not found.
+     * @throws PatternNotFoundException Expected pattern not found.
+     */
+    public AutomationPanel getDesktop()
+            throws AutomationException, PatternNotFoundException {
+        return new AutomationPanel(this.rootElement);
+    }
+
+    /**
+     * Gets the root element for automation.
+     *
+     * @param element Pointer to the element.
+     * @return Error status.
+     */
+    public int getRootElement(final PointerByReference element) {
+        return this.automation.getRootElement(element);
+    }
+
+    /**
+     * Compares 2 elements.
+     *
+     * @param element1 First element.
+     * @param element2 Second element.
+     * @param same     Are they the same.
+     * @return Error status.
+     */
+    public int compareElements(final Pointer element1,
+                               final Pointer element2,
+                               final IntByReference same) {
+        return this.automation.compareElements(element1, element2, same);
+    }
+
+    /**
+     * Create an 'and' condition.
+     *
+     * @param pCondition1 First condition.
+     * @param pCondition2 Second condition.
+     * @return The new condition.
+     * @throws AutomationException Something is wrong.
+     */
+    public PointerByReference createAndCondition(final PointerByReference pCondition1,
+                                                 final PointerByReference pCondition2)
+            throws AutomationException {
+        PointerByReference pbr = new PointerByReference();
+
+        final int res = this.automation.createAndCondition(pCondition1.getValue(), pCondition2.getValue(), pbr);
+        if (res == 0) {
+            return pbr;
+        } else {
+            throw new AutomationException(res);
+        }
+    }
+
+    /**
+     * Creates a true Condition.
+     *
+     * @return The condition.
+     * @throws AutomationException Something has gone wrong.
+     */
+    public PointerByReference createTrueCondition()
+            throws AutomationException {
+        PointerByReference pTrueCondition = new PointerByReference();
+
+        final int res = this.automation.createTrueCondition(pTrueCondition);
+        if (res == 0) {
+            return pTrueCondition;
+        } else {
+            throw new AutomationException(res);
+        }
+    }
+
+    /**
+     * Creates a false Condition.
+     *
+     * @return The condition.
+     * @throws AutomationException Something has gone wrong.
+     */
+    public PointerByReference createFalseCondition()
+            throws AutomationException {
+        PointerByReference condition = new PointerByReference();
+
+        final int res = this.automation.createFalseCondition(condition);
+        if (res == 0) {
+            return condition;
+        } else {
+            throw new AutomationException(res);
+        }
+    }
+
+    /**
+     * Create a NOT condition.
+     *
+     * @param condition The condition condition.
+     * @return The new condition.
+     * @throws AutomationException Something is wrong.
+     */
+    public PointerByReference createNotCondition(final PointerByReference condition)
+            throws AutomationException {
+        PointerByReference pbr = new PointerByReference();
+
+        final int res = this.automation.createNotCondition(condition.getValue(), pbr);
+        if (res == 0) {
+            return pbr;
+        } else {
+            throw new AutomationException(res);
+        }
+    }
+
+    /**
+     * Create an 'or' condition.
+     *
+     * @param pCondition1 First condition.
+     * @param pCondition2 Second condition.
+     * @return The new condition.
+     * @throws AutomationException Something is wrong.
+     */
+    public PointerByReference createOrCondition(final PointerByReference pCondition1,
+                                                final PointerByReference pCondition2)
+            throws AutomationException {
+        PointerByReference pbr = new PointerByReference();
+
+        final int res = this.automation.createOrCondition(pCondition1.getValue(), pCondition2.getValue(), pbr);
+        if (res == 0) {
+            return pbr;
+        } else {
+            throw new AutomationException(res);
+        }
+    }
+
+    /**
+     * Gets the root automation element.
+     *
+     * @return The root element.
+     */
+    public AutomationElement getRootElement() {
+        return this.rootElement;
+    }
+
+    /**
+     * Gets the desktop object associated with the title.
+     *
+     * @param title Title to search for.
+     * @return AutomationWindow The found 'element'.
+     * @throws ElementNotFoundException Element is not found.
+     */
+    protected AutomationElement get(final ControlType controlType,
+                                  final String title,
+                                  final int numberOfRetries)
+            throws AutomationException {
+        AutomationElement element = null;
+
+        // Look for a control type
+        Variant.VARIANT.ByValue variant1 = new Variant.VARIANT.ByValue();
+        variant1.setValue(Variant.VT_INT, controlType.getValue());
+
+        // Look for a specific title
+        Variant.VARIANT.ByValue variant2 = new Variant.VARIANT.ByValue();
+        WTypes.BSTR sysAllocated = OleAuto.INSTANCE.SysAllocString(title);
+        variant2.setValue(Variant.VT_BSTR, sysAllocated);
+
+        try {
+            // First condition
+            PointerByReference pCondition1 = this.createPropertyCondition(PropertyID.Name.getValue(), variant2);
+
+            // Second condition
+            PointerByReference pCondition2 = this.createPropertyCondition(PropertyID.ControlType.getValue(), variant1);
+
+            // And Condition
+            PointerByReference pAndCondition = this.createAndCondition(pCondition1, pCondition2);
+
+            for (int loop = 0; loop < numberOfRetries; loop++) {
+
+                try {
+                    element = this.rootElement.findFirst(new TreeScope(TreeScope.Descendants), pAndCondition);
+                } catch (AutomationException ex) {
+                    logger.info("Not found, retrying " + title);
+                }
+
+                if (element != null) {
+                    break;
+                }
+            }
+        } finally {
+            OleAuto.INSTANCE.SysFreeString(sysAllocated);
+        }
+
+        if (element == null) {
+            logger.warning("Failed to find desktop window `" + title + "`");
+            throw new ItemNotFoundException(title);
+        }
+
+        return element;
+    }
+
+    /**
+     * Creates a property condition.
+     *
+     * @param id Which property to check for.
+     * @param value The value of the property.
+     * @return The nre condition.
+     * @throws AutomationException Something has gone wrong.
+     */
+    public PointerByReference createPropertyCondition(final int id,
+                                                      final Variant.VARIANT.ByValue value)
+            throws AutomationException {
+        PointerByReference pCondition = new PointerByReference();
+
+        final int res = this.automation.createPropertyCondition(id, value, pCondition);
+        if (res == 0) {
+            Unknown unkCondition = new Unknown(pCondition.getValue());
+            PointerByReference pUnknown = new PointerByReference();
+
+            WinNT.HRESULT result1 = unkCondition.QueryInterface(new Guid.REFIID(IUIAutomationCondition.IID), pUnknown);
+            if (COMUtils.SUCCEEDED(result1)) {
+                return pCondition;
+            } else {
+                throw new AutomationException(result1.intValue());
+            }
+        } else {
+            throw new AutomationException(res);
+        }
+    }
+
+    /**
+     * Gets the desktop 'window' associated with the title.
+     *
+     * @param title Title to search for.
+     * @return AutomationWindow The found window.
+     * @throws ElementNotFoundException Element is not found.
+     * @throws PatternNotFoundException Expected pattern not found.
+     */
+    public AutomationWindow getDesktopWindow(final String title)
+            throws PatternNotFoundException, AutomationException {
+        return new AutomationWindow(this.get(ControlType.Window, title, FIND_DESKTOP_ATTEMPTS));
+    }
+
+    /**
+     * Gets the desktop 'window' associated with the title, with a variable
+     * number of retries.
+     *
+     * @param title Title to search for.
+     * @param retries Number of retries.
+     * @return AutomationWindow The found window.
+     * @throws ElementNotFoundException Element is not found.
+     * @throws PatternNotFoundException Expected pattern not found.
+     */
+    public AutomationWindow getDesktopWindow(final String title, final int retries)
+            throws PatternNotFoundException, AutomationException {
+        return new AutomationWindow(this.get(ControlType.Window, title, retries));
+    }
+
+    /**
+     * Creates a condition, based on control id.
+     *
+     * @param id The control id.
+     * @return The condition.
+     * @throws AutomationException Something went wrong.
+     */
+    public PointerByReference createControlTypeCondition(final ControlType id)
+            throws AutomationException {
+        Variant.VARIANT.ByValue variant = new Variant.VARIANT.ByValue();
+        variant.setValue(Variant.VT_INT, id.getValue());
+
+        return this.createPropertyCondition(PropertyID.ControlType.getValue(), variant);
+    }
+
+    /**
+     * Creates a condition, based on automation id.
+     *
+     * @param automationId The automation id.
+     * @return The condition.
+     * @throws AutomationException Something went wrong.
+     */
+    public PointerByReference createAutomationIdPropertyCondition(final String automationId)
+            throws AutomationException {
+        Variant.VARIANT.ByValue variant = new Variant.VARIANT.ByValue();
+        WTypes.BSTR sysAllocated = OleAuto.INSTANCE.SysAllocString(automationId);
+        variant.setValue(Variant.VT_BSTR, sysAllocated);
+
+        try {
+            return this.createPropertyCondition(PropertyID.AutomationId.getValue(), variant);
+        } finally {
+            OleAuto.INSTANCE.SysFreeString(sysAllocated);
+        }
+    }
+
+    /**
+     * Creates a condition, based on element name.
+     *
+     * @param name The name.
+     * @return The condition.
+     * @throws AutomationException Something went wrong.
+     */
+    public PointerByReference createNamePropertyCondition(final String name)
+            throws AutomationException {
+        Variant.VARIANT.ByValue variant = new Variant.VARIANT.ByValue();
+        WTypes.BSTR sysAllocated = OleAuto.INSTANCE.SysAllocString(name);
+        variant.setValue(Variant.VT_BSTR, sysAllocated);
+
+        try {
+            return this.createPropertyCondition(PropertyID.Name.getValue(), variant);
+        } finally {
+            OleAuto.INSTANCE.SysFreeString(sysAllocated);
+        }
+    }
+
+    /**
+     * Gets the desktop object associated with the title.
+     *
+     * @param title Title to search for.
+     * @return AutomationPanel The found object.
+     * @throws ElementNotFoundException Element is not found.
+     * @throws PatternNotFoundException Expected pattern not found.
+     */
+    public AutomationPanel getDesktopObject(final String title)
+            throws PatternNotFoundException, AutomationException {
+        return new AutomationPanel(this.get(ControlType.Pane, title, FIND_DESKTOP_ATTEMPTS));
+    }
+
+    /**
+     * Gets the list of desktop windows.
+     *
+     * @return List of desktop windows.
+     * @throws AutomationException Something has gone wrong.
+     * @throws PatternNotFoundException Expected pattern not found.
+     */
+    public List<AutomationWindow> getDesktopWindows()
+            throws PatternNotFoundException, AutomationException {
+        List<AutomationWindow> result = new ArrayList<AutomationWindow>();
+
+        List<AutomationElement> collection = getRootChildren(ControlType.Window);
+
+        for (AutomationElement element : collection) {
+            result.add(new AutomationWindow(element));
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets the list of desktop objects.
+     *
+     * @return List of desktop object.
+     * @throws AutomationException Something has gone wrong.
+     * @throws PatternNotFoundException Expected pattern not found.
+     */
+    public List<AutomationPanel> getDesktopObjects()
+            throws PatternNotFoundException, AutomationException {
+        List<AutomationPanel> result = new ArrayList<AutomationPanel>();
+
+        List<AutomationElement> collection = getRootChildren(ControlType.Pane);
+
+        for (AutomationElement element : collection) {
+            result.add(new AutomationPanel(element));
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets the list of children of the root object, for a given control type.
+     *
+     * @param controlType The control type to find.
+     * @return List of elements found
+     * @throws AutomationException Something is very wrong.
+     */
+    private List<AutomationElement> getRootChildren(final ControlType controlType)
+            throws AutomationException {
+        PointerByReference pCondition = this.createControlTypeCondition(controlType);
+
+        List<AutomationElement> collection =
+                this.rootElement.findAll(new TreeScope(TreeScope.Children), pCondition);
+        return collection;
+    }
+
+    /**
+     * Finds the given process.
+     *
+     * @param command Command to look for.
+     * @return The Application.
+     * @throws AutomationException If findProcessEntry throws an exception.
+     */
+    public AutomationApplication findProcess(final String... command)
+            throws AutomationException {
+
+        final Tlhelp32.PROCESSENTRY32.ByReference processEntry =
+                new Tlhelp32.PROCESSENTRY32.ByReference();
+
+        boolean found = Utils.findProcessEntry(processEntry, command);
+
+        if (!found) {
+            throw new AutomationException("Process " + command + " not found.");
+        } else {
+            WinNT.HANDLE handle = Utils.getHandleFromProcessEntry(processEntry);
+            return new AutomationApplication(rootElement, handle, true);
+        }
+    }
+
+    /**
+     * Gets the control view walker.
+     * @return The tree walker object.
+     * @throws AutomationException if something goes wrong.
+     */
+    public AutomationTreeWalker getControlViewWalker()
+            throws AutomationException {
+        PointerByReference pbrWalker = new PointerByReference();
+
+        this.automation.getControlViewWalker(pbrWalker);
+
+        Unknown unkConditionA = new Unknown(pbrWalker.getValue());
+        PointerByReference pUnknownA = new PointerByReference();
+
+        WinNT.HRESULT resultA = unkConditionA.QueryInterface(new Guid.REFIID(IUIAutomationTreeWalker.IID), pUnknownA);
+        if (COMUtils.SUCCEEDED(resultA)) {
+
+            IUIAutomationTreeWalker walker =
+                    IUIAutomationTreeWalkerConverter.PointerToInterface(pUnknownA);
+
+            return new AutomationTreeWalker(walker);
+        } else {
+            throw new AutomationException(resultA.intValue());
+        }
+    }
+
+        /*
+     * Adds an automation event handler.
+     *
+     IntByReference eventId,
+     TreeScope scope,
+     Pointer element,
+     PointerByReference cacheRequest,
+     PointerByReference handler
+     *
+     * @param event The identifier of the event that the method handles.
+     * @param scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
+     * @param element The UI Automation element to associate with the event handler.
+     * @param handler The object that handles the event.
+     * @throws AutomationException
+     */
+/*
+    public void addAutomationEventHandler(EventID event,
+                                          TreeScope scope,
+                                          AutomationElement element,
+                                          AutomationHandler handler) throws AutomationException {
+
+        IntByReference ibr = new IntByReference();
+        ibr.setValue(event.getValue());
+
+        PointerByReference handlerRef = new PointerByReference();
+
+        PointerByReference pElement = new PointerByReference();
+
+        WinNT.HRESULT resultA = element.element.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pElement);
+        if (COMUtils.SUCCEEDED(resultA)) {
+            throw new AutomationException();
+        }
+
+        if (automation.addAutomationEventHandler(ibr, scope, pElement.getValue(), null, handler) != 0) {
+            throw new AutomationException();
+        }
+    }
+*/
+          /*
+        IntByReference eventId, PointerByReference element, PointerByReference handler
+         */
+  /*
+    public void removeAutomationEventHandler(EventID event) {
+
+        IntByReference ibr = new IntByReference();
+        ibr.setValue(event.getValue());
+
+
+        automation.removeAutomationEventHandler(ibr);
+    }
+*/
+    /**
+     * Gets the desktop object associated with the title.
+     *
+     * @param title Title of the menu to search for.
+     * @return AutomationMenu The found menu.
+     * @throws ElementNotFoundException Element is not found.
+     */
+    public AutomationMenu getDesktopMenu(final String title)
+            throws AutomationException {
+        AutomationElement element = null;
+
+        // Look for a specific title
+        Variant.VARIANT.ByValue variant = new Variant.VARIANT.ByValue();
+        WTypes.BSTR sysAllocated = OleAuto.INSTANCE.SysAllocString(title);
+        variant.setValue(Variant.VT_BSTR, sysAllocated);
+
+        try {
+            PointerByReference pCondition1 = this.createPropertyCondition(PropertyID.Name.getValue(), variant);
+
+            for (int loop = 0; loop < FIND_DESKTOP_ATTEMPTS; loop++) {
+
+                try {
+                    element = this.rootElement.findFirst(new TreeScope(TreeScope.Descendants),
+                            pCondition1);
+                } catch (AutomationException ex) {
+                    logger.info("Not found, retrying " + title);
+                }
+
+                if (element != null) {
+                    break;
+                }
+            }
+        } finally {
+            OleAuto.INSTANCE.SysFreeString(sysAllocated);
+        }
+
+        if (element == null) {
+            logger.info("Failed to find desktop menu `" + title + "`");
+            throw new ItemNotFoundException(title);
+        }
+
+        return new AutomationMenu(element);
+    }
+}
