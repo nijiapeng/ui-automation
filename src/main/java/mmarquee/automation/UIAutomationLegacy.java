@@ -15,41 +15,30 @@
  */
 package mmarquee.automation;
 
-import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.COM.COMUtils;
 import com.sun.jna.platform.win32.COM.Unknown;
 import com.sun.jna.platform.win32.*;
-import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
-import mmarquee.automation.controls.AutomationApplication;
-import mmarquee.automation.controls.AutomationPanel;
 import mmarquee.automation.controls.AutomationWindow;
 import mmarquee.automation.controls.menu.AutomationMenu;
 import mmarquee.automation.pattern.PatternNotFoundException;
 import mmarquee.automation.uiautomation.*;
-import mmarquee.automation.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * The legacy base automation wrapper.
  *
- * This implements the interfaces, etc that are only available in Windows 8 and beofr
+ * This implements the interfaces, etc that are only available in Windows 8 and before.
  *
  * @author Mark Humphreys
- * Date 26/01/2016.
+ * Date 15/10/2017.
  *
  */
 public class UIAutomationLegacy extends UIAutomationBase {
 
-    protected static UIAutomationLegacy INSTANCE = null;
-
     /**
-     * Main automation interface.
+     * The legacy automation instance.
      */
-    private IUIAutomation automation;
+    protected static UIAutomationLegacy INSTANCE = null;
 
     /**
      * Created for test, to allow mocking.
@@ -64,14 +53,7 @@ public class UIAutomationLegacy extends UIAutomationBase {
      * Constructor for UIAutomation library.
      */
     protected UIAutomationLegacy() {
-        Ole32 = new Ole32Wrapper();
-
-        PointerByReference pbr1 = new PointerByReference();
-
-        WinNT.HRESULT result = getOle32Unknown().QueryInterface(new Guid.REFIID(IUIAutomation.IID), pbr1);
-        if (COMUtils.SUCCEEDED(result)) {
-            this.automation = IUIAutomationConverter.PointerToInterface(pbr1);
-        }
+        super();
 
         PointerByReference pRoot = new PointerByReference();
 
@@ -79,37 +61,11 @@ public class UIAutomationLegacy extends UIAutomationBase {
 
         Unknown uRoot = new Unknown(pRoot.getValue());
 
-        //
-
         WinNT.HRESULT result0 = uRoot.QueryInterface(new Guid.REFIID(IUIAutomationElement2.IID), pRoot);
 
         if (COMUtils.SUCCEEDED(result0)) {
             this.rootElement = new AutomationElement(IUIAutomationElement3Converter.PointerToInterface(pRoot));
         }
-    }
-
-    /**
-     * Gets the root element for automation.
-     *
-     * @param element Pointer to the element.
-     * @return Error status.
-     */
-    public int getRootElement(final PointerByReference element) {
-        return this.automation.getRootElement(element);
-    }
-
-    /**
-     * Compares 2 elements.
-     *
-     * @param element1 First element.
-     * @param element2 Second element.
-     * @param same     Are they the same.
-     * @return Error status.
-     */
-    public int compareElements(final Pointer element1,
-                               final Pointer element2,
-                               final IntByReference same) {
-        return this.automation.compareElements(element1, element2, same);
     }
 
     /**
@@ -123,62 +79,6 @@ public class UIAutomationLegacy extends UIAutomationBase {
         }
 
         return INSTANCE;
-    }
-
-    /**
-     * Gets the desktop object associated with the title.
-     *
-     * @param title Title to search for.
-     * @return AutomationWindow The found 'element'.
-     * @throws ElementNotFoundException Element is not found.
-     */
-    private AutomationElement get(final ControlType controlType,
-                                  final String title,
-                                  final int numberOfRetries)
-            throws AutomationException {
-        AutomationElement element = null;
-
-        // Look for a control type
-        Variant.VARIANT.ByValue variant1 = new Variant.VARIANT.ByValue();
-        variant1.setValue(Variant.VT_INT, controlType.getValue());
-
-        // Look for a specific title
-        Variant.VARIANT.ByValue variant2 = new Variant.VARIANT.ByValue();
-        WTypes.BSTR sysAllocated = OleAuto.INSTANCE.SysAllocString(title);
-        variant2.setValue(Variant.VT_BSTR, sysAllocated);
-
-        try {
-            // First condition
-            PointerByReference pCondition1 = this.createPropertyCondition(PropertyID.Name.getValue(), variant2);
-
-            // Second condition
-            PointerByReference pCondition2 = this.createPropertyCondition(PropertyID.ControlType.getValue(), variant1);
-
-            // And Condition
-            PointerByReference pAndCondition = this.createAndCondition(pCondition1, pCondition2);
-
-            for (int loop = 0; loop < numberOfRetries; loop++) {
-
-                try {
-                    element = this.rootElement.findFirst(new TreeScope(TreeScope.Descendants), pAndCondition);
-                } catch (AutomationException ex) {
-                    logger.info("Not found, retrying " + title);
-                }
-
-                if (element != null) {
-                    break;
-                }
-            }
-        } finally {
-            OleAuto.INSTANCE.SysFreeString(sysAllocated);
-        }
-
-        if (element == null) {
-            logger.warning("Failed to find desktop window `" + title + "`");
-            throw new ItemNotFoundException(title);
-        }
-
-        return element;
     }
 
     /**
@@ -207,48 +107,6 @@ public class UIAutomationLegacy extends UIAutomationBase {
     public AutomationWindow getDesktopWindow(final String title, final int retries)
             throws PatternNotFoundException, AutomationException {
         return new AutomationWindow(this.get(ControlType.Window, title, retries));
-    }
-
-    /**
-     * Create an 'and' condition.
-     *
-     * @param pCondition1 First condition.
-     * @param pCondition2 Second condition.
-     * @return The new condition.
-     * @throws AutomationException Something is wrong.
-     */
-    public PointerByReference createAndCondition(final PointerByReference pCondition1,
-                                                 final PointerByReference pCondition2)
-            throws AutomationException {
-        PointerByReference pbr = new PointerByReference();
-
-        final int res = this.automation.createAndCondition(pCondition1.getValue(), pCondition2.getValue(), pbr);
-        if (res == 0) {
-            return pbr;
-        } else {
-            throw new AutomationException(res);
-        }
-    }
-
-    /**
-     * Create an 'or' condition.
-     *
-     * @param pCondition1 First condition.
-     * @param pCondition2 Second condition.
-     * @return The new condition.
-     * @throws AutomationException Something is wrong.
-     */
-    public PointerByReference createOrCondition(final PointerByReference pCondition1,
-                                                final PointerByReference pCondition2)
-            throws AutomationException {
-        PointerByReference pbr = new PointerByReference();
-
-        final int res = this.automation.createOrCondition(pCondition1.getValue(), pCondition2.getValue(), pbr);
-        if (res == 0) {
-            return pbr;
-        } else {
-            throw new AutomationException(res);
-        }
     }
 
     /**
@@ -307,48 +165,6 @@ public class UIAutomationLegacy extends UIAutomationBase {
     }
 
     /**
-     * Creates a property condition.
-     *
-     * @param id Which property to check for.
-     * @param value The value of the property.
-     * @return The nre condition.
-     * @throws AutomationException Something has gone wrong.
-     */
-    public PointerByReference createPropertyCondition(final int id,
-                                                      final Variant.VARIANT.ByValue value)
-            throws AutomationException {
-        PointerByReference pCondition = new PointerByReference();
-
-        final int res = this.automation.createPropertyCondition(id, value, pCondition);
-        if (res == 0) {
-            Unknown unkCondition = new Unknown(pCondition.getValue());
-            PointerByReference pUnknown = new PointerByReference();
-
-            WinNT.HRESULT result1 = unkCondition.QueryInterface(new Guid.REFIID(IUIAutomationCondition.IID), pUnknown);
-            if (COMUtils.SUCCEEDED(result1)) {
-                return pCondition;
-            } else {
-                throw new AutomationException(result1.intValue());
-            }
-        } else {
-            throw new AutomationException(res);
-        }
-    }
-
-    /**
-     * Gets the desktop object associated with the title.
-     *
-     * @param title Title to search for.
-     * @return AutomationPanel The found object.
-     * @throws ElementNotFoundException Element is not found.
-     * @throws PatternNotFoundException Expected pattern not found.
-     */
-    public AutomationPanel getDesktopObject(final String title)
-            throws PatternNotFoundException, AutomationException {
-        return new AutomationPanel(this.get(ControlType.Pane, title, FIND_DESKTOP_ATTEMPTS));
-    }
-
-    /**
      * Gets the desktop object associated with the title.
      *
      * @param title Title of the menu to search for.
@@ -390,110 +206,6 @@ public class UIAutomationLegacy extends UIAutomationBase {
         }
 
         return new AutomationMenu(element);
-    }
-
-    /**
-     * Gets the list of desktop windows.
-     *
-     * @return List of desktop windows.
-     * @throws AutomationException Something has gone wrong.
-     * @throws PatternNotFoundException Expected pattern not found.
-     */
-    public List<AutomationWindow> getDesktopWindows()
-            throws PatternNotFoundException, AutomationException {
-        List<AutomationWindow> result = new ArrayList<AutomationWindow>();
-
-        List<AutomationElement> collection = getRootChildren(ControlType.Window);
-
-        for (AutomationElement element : collection) {
-            result.add(new AutomationWindow(element));
-        }
-
-        return result;
-    }
-
-    /**
-     * Gets the list of desktop objects.
-     *
-     * @return List of desktop object.
-     * @throws AutomationException Something has gone wrong.
-     * @throws PatternNotFoundException Expected pattern not found.
-     */
-    public List<AutomationPanel> getDesktopObjects()
-            throws PatternNotFoundException, AutomationException {
-        List<AutomationPanel> result = new ArrayList<AutomationPanel>();
-
-        List<AutomationElement> collection = getRootChildren(ControlType.Pane);
-
-        for (AutomationElement element : collection) {
-            result.add(new AutomationPanel(element));
-        }
-
-        return result;
-    }
-
-	private List<AutomationElement> getRootChildren(final ControlType controlType)
-            throws AutomationException {
-        PointerByReference pCondition = this.createControlTypeCondition(controlType);
-
-        List<AutomationElement> collection =
-                this.rootElement.findAll(new TreeScope(TreeScope.Children), pCondition);
-		return collection;
-	}
-
-    /**
-     * Creates a true Condition.
-     *
-     * @return The condition.
-     * @throws AutomationException Something has gone wrong.
-     */
-    public PointerByReference createTrueCondition()
-            throws AutomationException {
-        PointerByReference pTrueCondition = new PointerByReference();
-
-        final int res = this.automation.createTrueCondition(pTrueCondition);
-        if (res == 0) {
-            return pTrueCondition;
-        } else {
-            throw new AutomationException(res);
-        }
-    }
-
-    /**
-     * Creates a false Condition.
-     *
-     * @return The condition.
-     * @throws AutomationException Something has gone wrong.
-     */
-    public PointerByReference createFalseCondition()
-            throws AutomationException {
-        PointerByReference condition = new PointerByReference();
-
-        final int res = this.automation.createFalseCondition(condition);
-        if (res == 0) {
-            return condition;
-        } else {
-            throw new AutomationException(res);
-        }
-    }
-
-    /**
-     * Create a NOT condition.
-     *
-     * @param condition The condition condition.
-     * @return The new condition.
-     * @throws AutomationException Something is wrong.
-     */
-    public PointerByReference createNotCondition(final PointerByReference condition)
-            throws AutomationException {
-        PointerByReference pbr = new PointerByReference();
-
-        final int res = this.automation.createNotCondition(condition.getValue(), pbr);
-        if (res == 0) {
-            return pbr;
-        } else {
-            throw new AutomationException(res);
-        }
     }
 
     /**
@@ -553,64 +265,6 @@ public class UIAutomationLegacy extends UIAutomationBase {
             return new AutomationElementLegacy(element);
         } else {
             throw new AutomationException(res);
-        }
-    }
-
-    /**
-     * Gets the root automation element.
-     *
-     * @return The root element.
-     */
-    public AutomationElement getRootElement() {
-        return this.rootElement;
-    }
-
-    /**
-     * Finds the given process.
-     *
-     * @param command Command to look for.
-     * @return The Application.
-     * @throws AutomationException If findProcessEntry throws an exception.
-     */
-    public AutomationApplication findProcess(final String... command)
-            throws AutomationException {
-
-        final Tlhelp32.PROCESSENTRY32.ByReference processEntry =
-            new Tlhelp32.PROCESSENTRY32.ByReference();
-
-        boolean found = Utils.findProcessEntry(processEntry, command);
-
-        if (!found) {
-            throw new AutomationException("Process " + command + " not found.");
-        } else {
-            WinNT.HANDLE handle = Utils.getHandleFromProcessEntry(processEntry);
-            return new AutomationApplication(rootElement, handle, true);
-        }
-    }
-
-    /**
-     * Gets the control view walker.
-     * @return The tree walker object.
-     * @throws AutomationException if something goes wrong.
-     */
-    public AutomationTreeWalker getControlViewWalker()
-            throws AutomationException {
-        PointerByReference pbrWalker = new PointerByReference();
-
-        this.automation.getControlViewWalker(pbrWalker);
-
-        Unknown unkConditionA = new Unknown(pbrWalker.getValue());
-        PointerByReference pUnknownA = new PointerByReference();
-
-        WinNT.HRESULT resultA = unkConditionA.QueryInterface(new Guid.REFIID(IUIAutomationTreeWalker.IID), pUnknownA);
-        if (COMUtils.SUCCEEDED(resultA)) {
-
-            IUIAutomationTreeWalker walker =
-                    IUIAutomationTreeWalkerConverter.PointerToInterface(pUnknownA);
-
-            return new AutomationTreeWalker(walker);
-        } else {
-            throw new AutomationException(resultA.intValue());
         }
     }
 }
