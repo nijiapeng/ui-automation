@@ -25,6 +25,7 @@ import mmarquee.automation.pattern.PatternNotFoundException;
 import mmarquee.automation.pattern.Window;
 import mmarquee.automation.uiautomation.IUIAutomation;
 import mmarquee.automation.uiautomation.IUIAutomation3;
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import org.junit.*;
 import org.mockito.Mock;
@@ -220,7 +221,7 @@ public class AutomationWindowTest2 {
     @Ignore("Needs further work to make meaningful")
     public void test_windowHandle_Throws_Exception_When_currentPropertyValue_Returns_Error() throws Exception {
 
-        IUIAutomationElement3 elem = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement elem = Mockito.mock(IUIAutomationElement.class);
 
         doAnswer(new Answer() {
             @Override
@@ -381,7 +382,7 @@ public class AutomationWindowTest2 {
 
         AutomationWindow wndw = new AutomationWindow(element, window, container, user32);
 
-        IUIAutomationElement3 listElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement listElement = Mockito.mock(IUIAutomationElement.class);
 
         doAnswer(new Answer() {
             @Override
@@ -411,7 +412,7 @@ public class AutomationWindowTest2 {
 
         AutomationWindow wndw = new AutomationWindow(element, window, container, user32);
 
-        IUIAutomationElement3 listElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement listElement = Mockito.mock(IUIAutomationElement.class);
 
         doAnswer(new Answer() {
             @Override
@@ -441,7 +442,7 @@ public class AutomationWindowTest2 {
 
         AutomationWindow wndw = new AutomationWindow(element, window, container, user32);
 
-        IUIAutomationElement3 listElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement listElement = Mockito.mock(IUIAutomationElement.class);
 
         doAnswer(new Answer() {
             @Override
@@ -493,7 +494,7 @@ public class AutomationWindowTest2 {
         doAnswer(new Answer() {
             @Override
             public AutomationElement answer(InvocationOnMock invocation) throws Throwable {
-                IUIAutomationElement3 elem = Mockito.mock(IUIAutomationElement3.class);
+                IUIAutomationElement elem = Mockito.mock(IUIAutomationElement.class);
 
                 return new AutomationElement(elem);
             }

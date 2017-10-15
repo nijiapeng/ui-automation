@@ -18,7 +18,6 @@ package mmarquee.demo;
 import mmarquee.automation.ElementNotFoundException;
 import mmarquee.automation.ItemNotFoundException;
 import mmarquee.automation.UIAutomation;
-import mmarquee.automation.UIAutomationLegacy;
 import mmarquee.automation.controls.*;
 import mmarquee.automation.controls.menu.AutomationMainMenu;
 import mmarquee.automation.controls.menu.AutomationMenuItem;
@@ -36,7 +35,7 @@ public class TestNotepadLegacy extends TestBase {
      * Run the test.
      */
     public void run() {
-        UIAutomationLegacy automation = UIAutomationLegacy.getInstance();
+        UIAutomation automation = UIAutomation.getInstance();
 
         Logger logger = Logger.getLogger(AutomationBase.class.getName());
 

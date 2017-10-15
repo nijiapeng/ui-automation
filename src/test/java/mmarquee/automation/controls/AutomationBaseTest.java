@@ -596,7 +596,7 @@ public class AutomationBaseTest {
     @Test
     @Ignore("Need to mock variants somehow")
     public void test_getSelectItemPattern() throws Exception {
-        IUIAutomationElement3 el = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement el = Mockito.mock(IUIAutomationElement.class);
 
         AutomationElement element = Mockito.mock(AutomationElement.class);
         element.setElement(el);

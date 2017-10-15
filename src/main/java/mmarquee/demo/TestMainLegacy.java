@@ -35,7 +35,7 @@ import java.util.List;
 public class TestMainLegacy extends TestBase {
 
     public void run() {
-        UIAutomationLegacy automation = UIAutomationLegacy.getInstance();
+        UIAutomation automation = UIAutomation.getInstance();
 
         AutomationApplication application = null;
 

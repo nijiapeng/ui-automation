@@ -452,7 +452,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testcurrentControlType_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentControlType(any())).thenReturn(-1);
 
@@ -463,7 +463,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testcurrentPropertyValue_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentPropertyValue(anyInt(), any())).thenReturn(-1);
 
@@ -474,7 +474,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetAcceleratorKey_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentAcceleratorKey(any())).thenReturn(-1);
 
@@ -485,7 +485,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetCurrentProcessId_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentProcessId(any())).thenReturn(-1);
 
@@ -496,7 +496,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetAriaRole_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentAriaRole(any())).thenReturn(-1);
 
@@ -507,7 +507,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testCurrentClassName_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentClassName(any())).thenReturn(-1);
 
@@ -518,7 +518,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testCurrentIsPassword_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentIsPassword(any())).thenReturn(-1);
 
@@ -529,7 +529,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testLocalizedControlType_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentLocalizedControlType(any())).thenReturn(-1);
 
@@ -540,7 +540,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetOrientationType_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentOrientation(any())).thenReturn(-1);
 
@@ -551,7 +551,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetProviderDescription_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentProviderDescription(any())).thenReturn(-1);
 
@@ -562,7 +562,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetCulture_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentCulture(any())).thenReturn(-1);
 
@@ -573,7 +573,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetFrameworkId_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentFrameworkId(any())).thenReturn(-1);
 
@@ -584,7 +584,7 @@ public class IUIAutomationElement3Test {
 
     @Test (expected=AutomationException.class)
     public void testGetItemStatus_Fails_When_Element_Call_Fails() throws AutomationException {
-        IUIAutomationElement3 mockedElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement mockedElement = Mockito.mock(IUIAutomationElement.class);
 
         when(mockedElement.getCurrentItemStatus(any())).thenReturn(-1);
 

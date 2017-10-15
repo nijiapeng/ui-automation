@@ -28,6 +28,7 @@ import java.util.List;
 import mmarquee.automation.*;
 import mmarquee.automation.uiautomation.IUIAutomation;
 import mmarquee.automation.uiautomation.IUIAutomation3;
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -46,12 +47,18 @@ import mmarquee.automation.uiautomation.IUIAutomationElement3;
  * Tests for Combobox functionality
  */
 public class AutomationComboBoxTest {
-	@Mock AutomationElement element;
-	@Mock AutomationElement targetElement;
-	@Mock ExpandCollapse collapse;
-	@Mock Value value;
-	@Mock Selection selection;
-	@Mock IUIAutomationElement3 elem;
+	@Mock
+    AutomationElement element;
+	@Mock
+    AutomationElement targetElement;
+	@Mock
+    ExpandCollapse collapse;
+	@Mock
+    Value value;
+	@Mock
+    Selection selection;
+	@Mock
+    IUIAutomationElement elem;
 	
     static {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);

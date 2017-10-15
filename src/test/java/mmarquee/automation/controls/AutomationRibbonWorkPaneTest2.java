@@ -23,6 +23,7 @@ import mmarquee.automation.AutomationElement;
 import mmarquee.automation.ElementNotFoundException;
 import mmarquee.automation.controls.AutomationRibbonWorkPane;
 import mmarquee.automation.pattern.ItemContainer;
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import org.junit.*;
 import org.mockito.Mockito;
@@ -86,7 +87,7 @@ public class AutomationRibbonWorkPaneTest2 {
 
         List<AutomationElement> collection = new ArrayList<>();
 
-        IUIAutomationElement3 elem = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement elem = Mockito.mock(IUIAutomationElement.class);
 
         Mockito.when(elem.getCurrentClassName(any())).thenAnswer(
                 invocation -> {

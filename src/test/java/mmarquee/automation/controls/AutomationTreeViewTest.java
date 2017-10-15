@@ -2,6 +2,7 @@ package mmarquee.automation.controls;
 
 import mmarquee.automation.AutomationElement;
 import mmarquee.automation.PropertyID;
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import org.junit.Assume;
 import org.junit.BeforeClass;
@@ -46,7 +47,7 @@ public class AutomationTreeViewTest {
     public void testGetItem_When_Item_Present() throws Exception {
         AutomationElement element = Mockito.mock(AutomationElement.class);
 
-        IUIAutomationElement3 listElement = Mockito.mock(IUIAutomationElement3.class);
+        IUIAutomationElement listElement = Mockito.mock(IUIAutomationElement.class);
 
         AutomationElement result = new AutomationElement(listElement);
 

@@ -29,7 +29,7 @@ import com.sun.jna.ptr.PointerByReference;
  *
  * Pulled out to allow better isolation and testing
  */
-class IUIAutomationElementConverter {
+public class IUIAutomationElementConverter {
     private static int UIAutomationElement_Methods  = 85; // 0-2 IUnknown, 3-84 IUIAutomationElement3
 
     public static IUIAutomationElement PointerToInterface(final PointerByReference ptr) {

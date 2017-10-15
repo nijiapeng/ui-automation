@@ -50,10 +50,10 @@ public abstract class BaseAutomation {
      * Convert a raw PointerByReference to a IUIAutomationElement3.
      *
      * @param pbr The raw pointer.
-     * @return The IUIAutomationElement3.
+     * @return The IUIAutomationElement.
      * @throws AutomationException Automation library has thrown an error.
      */
-    public IUIAutomationElement3 getAutomationElementFromReference(final PointerByReference pbr)
+    public IUIAutomationElement getAutomationElementFromReference(final PointerByReference pbr)
             throws AutomationException {
         Unknown uElement = makeUnknown(pbr.getValue());
 
@@ -63,7 +63,7 @@ public abstract class BaseAutomation {
             throw new AutomationException(result0.intValue());
         }
 
-        return IUIAutomationElement3Converter.PointerToInterface(pbr);
+        return IUIAutomationElementConverter.PointerToInterface(pbr);
     }
 
     /**
@@ -139,8 +139,8 @@ public abstract class BaseAutomation {
             WinNT.HRESULT result0 = uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pbr);
 
             if (COMUtils.SUCCEEDED(result0)) {
-                IUIAutomationElement3 element =
-                        IUIAutomationElement3Converter.PointerToInterface(pbr);
+                IUIAutomationElement element =
+                        IUIAutomationElementConverter.PointerToInterface(pbr);
 
                 list.add(new AutomationElement(element));
             }
@@ -156,11 +156,11 @@ public abstract class BaseAutomation {
      * @return Pointer The raw pointer.
      * @throws AutomationException An error has occurred in the automation library.
      */
-    protected Pointer getPointerFromElement(final IUIAutomationElement3 element)
+    protected Pointer getPointerFromElement(final IUIAutomationElement element)
             throws AutomationException {
         PointerByReference pElement = new PointerByReference();
 
-        WinNT.HRESULT result1 = element.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pElement);
+        WinNT.HRESULT result1 = element.QueryInterface(new Guid.REFIID(IUIAutomationElement.IID), pElement);
         if (!COMUtils.SUCCEEDED(result1)) {
             throw new AutomationException(result1.intValue());
         }

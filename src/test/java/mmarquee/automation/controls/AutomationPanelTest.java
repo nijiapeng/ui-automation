@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -59,7 +60,7 @@ public class AutomationPanelTest {
     
     AutomationPanel panel;
     
-    IUIAutomationElement3 elem;
+    IUIAutomationElement elem;
     
     List<AutomationElement> list;
     AutomationElement targetElement;
@@ -70,7 +71,7 @@ public class AutomationPanelTest {
 
         panel = Mockito.spy(new AutomationPanel(element));
         
-        elem = Mockito.mock(IUIAutomationElement3.class);
+        elem = Mockito.mock(IUIAutomationElement.class);
         
         list = new ArrayList<>();
         targetElement = new AutomationElement(elem);

@@ -17,6 +17,7 @@ import com.sun.jna.platform.win32.Variant;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -62,7 +63,7 @@ public class AutomationContainerTest {
         wndw = new AutomationWindow(element, window, container);
         spyWndw = Mockito.spy(wndw);
         
-        elem = Mockito.mock(IUIAutomationElement3.class);
+        elem = Mockito.mock(IUIAutomationElement.class);
         
         list = new ArrayList<>();
         targetElement = new AutomationElement(elem);
@@ -84,7 +85,7 @@ public class AutomationContainerTest {
     AutomationWindow wndw;
     AutomationWindow spyWndw;
     
-    IUIAutomationElement3 elem;
+    IUIAutomationElement elem;
     
     List<AutomationElement> list;
     AutomationElement targetElement;
@@ -1667,7 +1668,7 @@ public class AutomationContainerTest {
         wndw.getControlByClassName("unknownName","BlaBla");
     }
 
-	private void setElementTypeAndClassName(IUIAutomationElement3 elem, ControlType controlType, String className) {
+	private void setElementTypeAndClassName(IUIAutomationElement elem, ControlType controlType, String className) {
 		BaseAutomationTest.answerIntByReference(controlType.getValue()).when(elem).getCurrentControlType(any());
 		BaseAutomationTest.answerStringByReference(className).when(elem).getCurrentClassName(any());
 	}

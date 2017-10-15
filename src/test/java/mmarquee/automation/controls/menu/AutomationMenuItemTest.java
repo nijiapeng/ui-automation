@@ -26,6 +26,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -106,7 +107,7 @@ public class AutomationMenuItemTest extends BaseAutomationTest {
     @Test
     public void testClick() throws Exception {
 
-    	IUIAutomationElement3 elem = Mockito.mock(IUIAutomationElement3.class);
+    	IUIAutomationElement elem = Mockito.mock(IUIAutomationElement.class);
         BaseAutomationTest.setElementPropertyValue(elem, PropertyID.IsInvokePatternAvailable, Variant.VT_INT, 1);
         
         mocked_element = new AutomationElement(elem);

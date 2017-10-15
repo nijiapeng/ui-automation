@@ -18,31 +18,24 @@ package mmarquee.automation.controls.menu;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import org.junit.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import com.sun.jna.platform.win32.WinNT;
-import com.sun.jna.platform.win32.COM.Unknown;
-import com.sun.jna.ptr.PointerByReference;
 
 import mmarquee.automation.AutomationElement;
 import mmarquee.automation.BaseAutomationTest;
 import mmarquee.automation.ElementNotFoundException;
 import mmarquee.automation.ItemNotFoundException;
 import mmarquee.automation.pattern.ExpandCollapse;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import mmarquee.automation.uiautomation.TreeScope;
 
 /**
@@ -63,7 +56,8 @@ public class AutomationMainMenuTest extends BaseAutomationTest {
 
     @Mock private AutomationElement element;
 	@Mock private AutomationElement parent;
-	@Mock IUIAutomationElement3 elem;
+	@Mock
+    IUIAutomationElement elem;
 
 	@Before
     public void setup() {
@@ -101,7 +95,6 @@ public class AutomationMainMenuTest extends BaseAutomationTest {
     @Test
     public void testGetMenuItem_With_Both_Parameters() throws Exception {
         when(element.getName()).thenReturn(getLocal("menu.file"));
-        
 
         AutomationElement menuItemElement1 = Mockito.mock(AutomationElement.class);
         ExpandCollapse expandCollapsePattern = BaseAutomationTest.mockExpandCollapsePattern(menuItemElement1);

@@ -83,10 +83,10 @@ public class UIAutomation extends BaseAutomation {
 
         Unknown uRoot = new Unknown(pRoot.getValue());
 
-        WinNT.HRESULT result0 = uRoot.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pRoot);
+        WinNT.HRESULT result0 = uRoot.QueryInterface(new Guid.REFIID(IUIAutomationElement.IID), pRoot);
 
         if (COMUtils.SUCCEEDED(result0)) {
-            this.rootElement = new AutomationElement(IUIAutomationElement3Converter.PointerToInterface(pRoot));
+            this.rootElement = new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pRoot));
         }
     }
 
@@ -614,7 +614,7 @@ public class UIAutomation extends BaseAutomation {
 
         final int res = this.automation.elementFromPoint(pt, pbr);
         if (res == 0) {
-            IUIAutomationElement3 element = getAutomationElementFromReference(pbr);
+            IUIAutomationElement element = getAutomationElementFromReference(pbr);
 
             return new AutomationElement(element);
         } else {
@@ -635,7 +635,7 @@ public class UIAutomation extends BaseAutomation {
 
         final int res = this.automation.getElementFromHandle(hwnd, pbr);
         if (res == 0) {
-            IUIAutomationElement3 element = getAutomationElementFromReference(pbr);
+            IUIAutomationElement element = getAutomationElementFromReference(pbr);
 
             return new AutomationElement(element);
         } else {
@@ -654,7 +654,7 @@ public class UIAutomation extends BaseAutomation {
 
         final int res = this.automation.getFocusedElement(pbr);
         if (res == 0) {
-            IUIAutomationElement3 element = getAutomationElementFromReference(pbr);
+            IUIAutomationElement element = getAutomationElementFromReference(pbr);
 
             return new AutomationElement(element);
         } else {

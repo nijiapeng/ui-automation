@@ -17,9 +17,7 @@ package mmarquee.automation;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.PointerByReference;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
-import mmarquee.automation.uiautomation.IUIAutomationElement3Converter;
-import mmarquee.automation.uiautomation.IUIAutomationTreeWalker;
+import mmarquee.automation.uiautomation.*;
 
 /**
  * @author Mark Humphreys
@@ -57,9 +55,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getNextSiblingElement(pElement, pChild);
 
         try {
-	        IUIAutomationElement3 childElement =
-	                IUIAutomationElement3Converter.PointerToInterface(pChild);
-	        return new AutomationElement(childElement);
+	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -81,9 +77,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getPreviousSiblingElement(pElement, pChild);
 
         try {
-	        IUIAutomationElement3 childElement =
-	                IUIAutomationElement3Converter.PointerToInterface(pChild);
-	        return new AutomationElement(childElement);
+	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -104,9 +98,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getLastChildElement(pElement, pChild);
 
         try {
-	        IUIAutomationElement3 childElement =
-	                IUIAutomationElement3Converter.PointerToInterface(pChild);
-	        return new AutomationElement(childElement);
+	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -126,9 +118,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getFirstChildElement(pElement, pChild);
         
         try {
-	        IUIAutomationElement3 childElement =
-	                IUIAutomationElement3Converter.PointerToInterface(pChild);
-	        return new AutomationElement(childElement);
+	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -149,9 +139,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getParentElement(pElement, pParent);
 
         try {
-            IUIAutomationElement3 parentElement =
-                    IUIAutomationElement3Converter.PointerToInterface(pParent);
-            return new AutomationElement(parentElement);
+            return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pParent));
         } catch (NullPointerException ex) {
             return null;
         }

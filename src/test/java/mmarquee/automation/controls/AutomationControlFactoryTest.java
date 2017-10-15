@@ -19,6 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import org.apache.log4j.Logger;
 import org.junit.Assume;
 import org.junit.Before;
@@ -56,12 +57,10 @@ public class AutomationControlFactoryTest {
         return System.getProperty("os.name").toLowerCase().contains("windows");
     }
 
-    protected Logger logger = Logger.getLogger(AutomationControlFactoryTest.class.getName());
-	
     private AutomationBase parent;
     private AutomationElement parentElement;
 	private AutomationElement element;
-	private IUIAutomationElement3 iuielement;
+	private IUIAutomationElement iuielement;
 
     static {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
@@ -72,7 +71,7 @@ public class AutomationControlFactoryTest {
 		parent = Mockito.mock(AutomationBase.class);
 		parentElement = Mockito.mock(AutomationElement.class);
 		when(parent.getElement()).thenReturn(parentElement);
-		iuielement = Mockito.mock(IUIAutomationElement3.class);
+		iuielement = Mockito.mock(IUIAutomationElement.class);
         element = new AutomationElement(iuielement);
     }
     
