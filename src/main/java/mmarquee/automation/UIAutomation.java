@@ -40,7 +40,7 @@ public class UIAutomation extends UIAutomationBase {
      * @param automation The automation object to use.
      */
     public UIAutomation(final IUIAutomation automation) {
-        this.automation = automation;
+        super(automation);
     }
 
     /**

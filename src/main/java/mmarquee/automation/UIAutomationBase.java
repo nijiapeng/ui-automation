@@ -64,6 +64,15 @@ abstract class UIAutomationBase extends BaseAutomation {
     }
 
     /**
+     * Created for test, to allow mocking.
+     *
+     * @param automation The automation object to use.
+     */
+    public UIAutomationBase(final IUIAutomation automation) {
+        this.automation = automation;
+    }
+
+    /**
      * Constructor for the base UIAutomation, standard to both 'normal' and legacy.
      */
     protected UIAutomationBase() {
