@@ -15,8 +15,11 @@
  */
 package mmarquee.automation;
 
+import com.sun.jna.platform.win32.COM.COMUtils;
+import com.sun.jna.platform.win32.Guid;
 import com.sun.jna.platform.win32.Variant;
 import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 import mmarquee.automation.uiautomation.*;
@@ -569,17 +572,17 @@ public class AutomationElement extends BaseAutomation {
      * @throws AutomationException Failed to get the correct interface.
      */
     public void showContextMenu() throws AutomationException {
+        PointerByReference pUnknown = new PointerByReference();
 
-        // This is now broken, as we are using the earlier interfaces
+        WinNT.HRESULT result = this.element.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pUnknown);
 
-//       if (this.element instanceof IUIAutomationElement3) {
-//            IUIAutomationElement3 elem = (IUIAutomationElement3) this.element;
-//            final int res = elem.showContextMenu();
-//            if (res != 0) {
-//                throw new AutomationException(res);
- //           }
-  //      } else {
+        if (COMUtils.SUCCEEDED(result)) {
+            IUIAutomationElement3 element3 =
+                    IUIAutomationElement3Converter.PointerToInterface(pUnknown);
+
+            element3.showContextMenu();
+        } else {
             throw new AutomationException("Interface not supported");
- //       }
+        }
     }
 }
