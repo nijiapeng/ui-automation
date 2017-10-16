@@ -94,8 +94,10 @@ In order to click the 'OK' button associated with a given window, it can be foun
   button1.click();
 ```
 
-# Current supported controls
+# Support for legacy Windows installations
+* [Windows Legacy](windows-support.md)
 
+# Current supported controls
 The controls that have been implemented reflect the requirements for automating the applications that we are testing ourselves, so some controls have not been implemented, or only partially. The currently supported controls are ...
 
 * [Button](button.md)
@@ -121,7 +123,6 @@ The controls that have been implemented reflect the requirements for automating 
 * [Document](document.md)
 * [Slider](slider.md)
 * [Window](window.md)
-
 
 ## Real world examples
 * [Tree Walker](treewalker.md)
