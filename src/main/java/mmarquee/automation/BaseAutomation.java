@@ -57,7 +57,7 @@ public abstract class BaseAutomation {
             throws AutomationException {
         Unknown uElement = makeUnknown(pbr.getValue());
 
-        WinNT.HRESULT result0 = uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pbr);
+        WinNT.HRESULT result0 = uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement.IID), pbr);
 
         if (COMUtils.FAILED(result0)) {
             throw new AutomationException(result0.intValue());
