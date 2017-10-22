@@ -39,7 +39,6 @@ import mmarquee.automation.BaseAutomationTest;
 import mmarquee.automation.ControlType;
 import mmarquee.automation.ElementNotFoundException;
 import mmarquee.automation.UIAutomation;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import mmarquee.automation.uiautomation.TreeScope;
 
 public class AutomationPanelTest {

@@ -22,10 +22,11 @@ import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 
 /**
+ * Wrapper for the IUIAutomationElement automation interface.
+ *
  * @author Mark Humphreys
  * Date 06/07/2016.
  *
- * Wrapper for the IUIAutomationElement3 automation interface
  */
 public interface IUIAutomationElement extends IUnknown {
 

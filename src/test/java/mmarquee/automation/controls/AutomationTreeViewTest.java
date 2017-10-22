@@ -3,7 +3,6 @@ package mmarquee.automation.controls;
 import mmarquee.automation.AutomationElement;
 import mmarquee.automation.PropertyID;
 import mmarquee.automation.uiautomation.IUIAutomationElement;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;

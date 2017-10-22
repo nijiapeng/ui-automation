@@ -38,8 +38,6 @@ import org.mockito.MockitoAnnotations;
 import mmarquee.automation.pattern.ExpandCollapse;
 import mmarquee.automation.pattern.Selection;
 import mmarquee.automation.pattern.Value;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
-
 /**
  * @author Mark Humphreys
  * Date 29/11/2016.

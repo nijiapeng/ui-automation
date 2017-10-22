@@ -35,7 +35,7 @@ import org.mockito.MockitoAnnotations;
 import mmarquee.automation.AutomationElement;
 import mmarquee.automation.BaseAutomationTest;
 import mmarquee.automation.ElementNotFoundException;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
+import mmarquee.automation.uiautomation.IUIAutomationElement;
 import mmarquee.automation.uiautomation.TreeScope;
 
 /**
@@ -57,7 +57,7 @@ public class AutomationMenuTest extends BaseAutomationTest {
 
     @Mock private AutomationElement element;
 	@Mock private AutomationElement targetElement;
-	@Mock IUIAutomationElement3 elem;
+	@Mock IUIAutomationElement elem;
 
 	@Before
     public void setup() {

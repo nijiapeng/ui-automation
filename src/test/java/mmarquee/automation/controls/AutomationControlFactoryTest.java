@@ -38,7 +38,6 @@ import mmarquee.automation.controls.menu.AutomationMainMenu;
 import mmarquee.automation.controls.menu.AutomationMenu;
 import mmarquee.automation.controls.menu.AutomationMenuItem;
 import mmarquee.automation.pattern.PatternNotFoundException;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
 
 /**
  * @author Mark Humphreys

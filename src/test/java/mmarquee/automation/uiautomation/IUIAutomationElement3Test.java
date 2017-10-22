@@ -72,15 +72,15 @@ public class IUIAutomationElement3Test {
         }
     }
 
-    private IUIAutomationElement3 getChildOfRootElement() throws Exception {
+    private IUIAutomationElement getChildOfRootElement() throws Exception {
         PointerByReference root = new PointerByReference();
         automation.getRootElement(root);
 
         Unknown uRoot = new Unknown(root.getValue());
 
-        WinNT.HRESULT result = uRoot.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), root);
+        WinNT.HRESULT result = uRoot.QueryInterface(new Guid.REFIID(IUIAutomationElement.IID), root);
         if (COMUtils.SUCCEEDED(result)) {
-            IUIAutomationElement3 rootElement = IUIAutomationElement3Converter.PointerToInterface(root);
+            IUIAutomationElement rootElement = IUIAutomationElementConverter.PointerToInterface(root);
 
             // Get first descendant for the root element
             PointerByReference pCondition = new PointerByReference();
@@ -93,9 +93,9 @@ public class IUIAutomationElement3Test {
 
             PointerByReference element = new PointerByReference();
 
-            uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), element);
+            uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement.IID), element);
 
-            return IUIAutomationElement3Converter.PointerToInterface(element);
+            return IUIAutomationElementConverter.PointerToInterface(element);
         } else {
             throw new Exception("Failed to get root element");
         }
@@ -256,7 +256,7 @@ public class IUIAutomationElement3Test {
 
     @Test
     public void testClassNameForNonRootElement() throws Exception {
-        IUIAutomationElement3 root = this.getChildOfRootElement();
+        IUIAutomationElement root = this.getChildOfRootElement();
 
         PointerByReference sr = new PointerByReference();
 
@@ -272,7 +272,7 @@ public class IUIAutomationElement3Test {
 
     @Test
     public void testNameForNonRootElementDoesntReturnError() throws Exception {
-        IUIAutomationElement3 element = this.getChildOfRootElement();
+        IUIAutomationElement element = this.getChildOfRootElement();
 
         PointerByReference sr = new PointerByReference();
 
@@ -281,7 +281,7 @@ public class IUIAutomationElement3Test {
 
     @Test
     public void testIsPasswordForNonRootElement() throws Exception {
-        IUIAutomationElement3 root = this.getChildOfRootElement();
+        IUIAutomationElement root = this.getChildOfRootElement();
 
         IntByReference ir = new IntByReference();
 
@@ -297,7 +297,7 @@ public class IUIAutomationElement3Test {
     @Test
     @Ignore("Should probably be mocked")
     public void testGetControlTypeForNonRootElement() throws Exception {
-        IUIAutomationElement3 root = this.getChildOfRootElement();
+        IUIAutomationElement root = this.getChildOfRootElement();
 
         IntByReference ir = new IntByReference();
 
@@ -312,7 +312,7 @@ public class IUIAutomationElement3Test {
 
     @Test
     public void testIsOffScreenForNonRootElement() throws Exception {
-        IUIAutomationElement3 root = this.getChildOfRootElement();
+        IUIAutomationElement root = this.getChildOfRootElement();
 
         WinDef.BOOLByReference br = new WinDef.BOOLByReference();
 
@@ -327,7 +327,7 @@ public class IUIAutomationElement3Test {
 
     @Test
     public void testIsEnabledForNonRootElement() throws Exception {
-        IUIAutomationElement3 root = this.getChildOfRootElement();
+        IUIAutomationElement root = this.getChildOfRootElement();
 
         WinDef.BOOLByReference br = new WinDef.BOOLByReference();
 
@@ -342,7 +342,7 @@ public class IUIAutomationElement3Test {
 
     @Test
     public void testIsContentElementForNonRootElement() throws Exception {
-        IUIAutomationElement3 root = this.getChildOfRootElement();
+        IUIAutomationElement root = this.getChildOfRootElement();
 
         WinDef.BOOLByReference br = new WinDef.BOOLByReference();
 
@@ -357,7 +357,7 @@ public class IUIAutomationElement3Test {
 
     @Test
     public void testIsControlElementForNonRootElement() throws Exception {
-        IUIAutomationElement3 root = this.getChildOfRootElement();
+        IUIAutomationElement root = this.getChildOfRootElement();
 
         WinDef.BOOLByReference br = new WinDef.BOOLByReference();
 

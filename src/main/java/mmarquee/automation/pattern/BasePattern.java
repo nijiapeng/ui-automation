@@ -75,7 +75,7 @@ public abstract class BasePattern extends BaseAutomation implements Pattern {
     }
 
     /**
-     * Converts the unknown value to a IUIAutomationElement3
+     * Converts the unknown value to a IUIAutomationElement.
      * @param pUnknownA The Unknown pointer
      * @return The pattern
      */
@@ -84,7 +84,7 @@ public abstract class BasePattern extends BaseAutomation implements Pattern {
     }
 
     /**
-     * Converts the unknown value to a IUIAutomationElementArray
+     * Converts the unknown value to a IUIAutomationElementArray.
      * @param pUnknownA The Unknown pointer
      * @return The pattern
      */

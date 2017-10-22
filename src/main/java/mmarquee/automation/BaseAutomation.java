@@ -47,7 +47,7 @@ public abstract class BaseAutomation {
     }
 
     /**
-     * Convert a raw PointerByReference to a IUIAutomationElement3.
+     * Convert a raw PointerByReference to a IUIAutomationElement.
      *
      * @param pbr The raw pointer.
      * @return The IUIAutomationElement.
@@ -64,26 +64,6 @@ public abstract class BaseAutomation {
         }
 
         return IUIAutomationElementConverter.PointerToInterface(pbr);
-    }
-
-    /**
-     * Convert a raw PointerByReference to a IUIAutomationElement2.
-     *
-     * @param pbr The raw pointer.
-     * @return The IUIAutomationElement2.
-     * @throws AutomationException Automation library has thrown an error.
-     */
-    public IUIAutomationElement2 getAutomationElementFromReferenceLegacy(final PointerByReference pbr)
-            throws AutomationException {
-        Unknown uElement = makeUnknown(pbr.getValue());
-
-        WinNT.HRESULT result0 = uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement2.IID), pbr);
-
-        if (COMUtils.FAILED(result0)) {
-            throw new AutomationException(result0.intValue());
-        }
-
-        return IUIAutomationElement2Converter.PointerToInterface(pbr);
     }
 
     /**
@@ -136,7 +116,7 @@ public abstract class BaseAutomation {
 
             Unknown uElement = new Unknown(pbr.getValue());
 
-            WinNT.HRESULT result0 = uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pbr);
+            WinNT.HRESULT result0 = uElement.QueryInterface(new Guid.REFIID(IUIAutomationElement.IID), pbr);
 
             if (COMUtils.SUCCEEDED(result0)) {
                 IUIAutomationElement element =

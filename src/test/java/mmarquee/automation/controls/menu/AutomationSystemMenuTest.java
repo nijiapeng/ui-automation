@@ -29,7 +29,6 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 import mmarquee.automation.uiautomation.IUIAutomationElement;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;

@@ -44,7 +44,6 @@ import mmarquee.automation.ElementNotFoundException;
 import mmarquee.automation.PropertyID;
 import mmarquee.automation.pattern.ExpandCollapse;
 import mmarquee.automation.pattern.Invoke;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import mmarquee.automation.uiautomation.TreeScope;
 
 /**

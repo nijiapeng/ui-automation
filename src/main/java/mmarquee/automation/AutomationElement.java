@@ -46,7 +46,7 @@ public class AutomationElement extends BaseAutomation {
     /**
      * Gets the underlying automation element.
      *
-     * @return IUIAutomationElement3 The automation element.
+     * @return IUIAutomationElement The automation element.
      */
     public final IUIAutomationElement getElement() {
         return element;

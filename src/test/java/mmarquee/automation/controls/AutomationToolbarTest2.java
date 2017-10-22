@@ -18,7 +18,6 @@ package mmarquee.automation.controls;
 import mmarquee.automation.AutomationElement;
 import mmarquee.automation.pattern.ItemContainer;
 import mmarquee.automation.uiautomation.IUIAutomationElement;
-import mmarquee.automation.uiautomation.IUIAutomationElement3;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
