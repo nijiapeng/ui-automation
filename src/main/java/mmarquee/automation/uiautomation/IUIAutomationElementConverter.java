@@ -29,7 +29,7 @@ import com.sun.jna.ptr.PointerByReference;
  *
  * Pulled out to allow better isolation and testing
  */
-class IUIAutomationElementConverter {
+public class IUIAutomationElementConverter {
     /**
      * Number of methods.
      *
