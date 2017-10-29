@@ -82,7 +82,7 @@ public class AutomationMainMenu extends AutomationMenu {
         WinNT.HRESULT resultA = unkConditionA.QueryInterface(new Guid.REFIID(IUIAutomationExpandCollapsePattern.IID), pUnknownA);
         if (COMUtils.SUCCEEDED(resultA)) {
             IUIAutomationExpandCollapsePattern pattern =
-                    IUIAutomationExpandCollapsePatternConverter.PointerToInterface(pUnknownA);
+                    IUIAutomationExpandCollapsePatternConverter.pointerToInterface(pUnknownA);
 
             return pattern;
         } else {

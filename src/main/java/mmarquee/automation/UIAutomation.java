@@ -74,7 +74,7 @@ public class UIAutomation extends BaseAutomation {
 
         WinNT.HRESULT result = getOle32Unknown().QueryInterface(new Guid.REFIID(IUIAutomation.IID), pbr1);
         if (COMUtils.SUCCEEDED(result)) {
-            this.automation = IUIAutomationConverter.PointerToInterface(pbr1);
+            this.automation = IUIAutomationConverter.pointerToInterface(pbr1);
         }
 
         PointerByReference pRoot = new PointerByReference();
@@ -86,7 +86,7 @@ public class UIAutomation extends BaseAutomation {
         WinNT.HRESULT result0 = uRoot.QueryInterface(new Guid.REFIID(IUIAutomationElement3.IID), pRoot);
 
         if (COMUtils.SUCCEEDED(result0)) {
-            this.rootElement = new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pRoot));
+            this.rootElement = new AutomationElement(IUIAutomationElementConverter.pointerToInterface(pRoot));
         }
     }
 
@@ -712,7 +712,7 @@ public class UIAutomation extends BaseAutomation {
         if (COMUtils.SUCCEEDED(resultA)) {
 
             IUIAutomationTreeWalker walker =
-                    IUIAutomationTreeWalkerConverter.PointerToInterface(pUnknownA);
+                    IUIAutomationTreeWalkerConverter.pointerToInterface(pUnknownA);
 
             return new AutomationTreeWalker(walker);
         } else {

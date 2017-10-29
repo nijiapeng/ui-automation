@@ -78,6 +78,6 @@ public class Invoke extends BasePattern {
     }
 
     public IUIAutomationInvokePattern convertPointerToInterface(PointerByReference pUnknown) {
-        return IUIAutomationInvokePatternConverter.PointerToInterface(pUnknown);
+        return IUIAutomationInvokePatternConverter.pointerToInterface(pUnknown);
     }
 }

@@ -117,6 +117,6 @@ public class Value extends BasePattern {
     }
 
     public IUIAutomationValuePattern convertPointerToInterface(PointerByReference pUnknownA) {
-        return IUIAutomationValuePatternConverter.PointerToInterface(pUnknownA);
+        return IUIAutomationValuePatternConverter.pointerToInterface(pUnknownA);
     }
 }

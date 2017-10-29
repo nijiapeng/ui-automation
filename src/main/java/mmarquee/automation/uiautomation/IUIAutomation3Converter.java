@@ -53,7 +53,7 @@ public class IUIAutomation3Converter {
 
     private static Pointer myInterfacePointer;
 
-    public static IUIAutomation3 PointerToInterface(final PointerByReference ptr) {
+    public static IUIAutomation3 pointerToInterface(final PointerByReference ptr) {
         myInterfacePointer = ptr.getValue();
         Pointer vTablePointer = myInterfacePointer.getPointer(0);
 

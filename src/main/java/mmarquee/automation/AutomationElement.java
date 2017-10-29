@@ -578,7 +578,7 @@ public class AutomationElement extends BaseAutomation {
 
         if (COMUtils.SUCCEEDED(result)) {
             IUIAutomationElement3 element3 =
-                    IUIAutomationElement3Converter.PointerToInterface(pUnknown);
+                    IUIAutomationElement3Converter.pointerToInterface(pUnknown);
 
             element3.showContextMenu();
         } else {

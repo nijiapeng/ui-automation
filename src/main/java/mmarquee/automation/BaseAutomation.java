@@ -63,7 +63,7 @@ public abstract class BaseAutomation {
             throw new AutomationException(result0.intValue());
         }
 
-        return IUIAutomationElementConverter.PointerToInterface(pbr);
+        return IUIAutomationElementConverter.pointerToInterface(pbr);
     }
 
     /**
@@ -83,7 +83,7 @@ public abstract class BaseAutomation {
             throw new AutomationException(result0.intValue());
         }
 
-        return IUIAutomationElementArrayConverter.PointerToInterface(pUnknown);
+        return IUIAutomationElementArrayConverter.pointerToInterface(pUnknown);
     }
 
     /**
@@ -120,7 +120,7 @@ public abstract class BaseAutomation {
 
             if (COMUtils.SUCCEEDED(result0)) {
                 IUIAutomationElement element =
-                        IUIAutomationElementConverter.PointerToInterface(pbr);
+                        IUIAutomationElementConverter.pointerToInterface(pbr);
 
                 list.add(new AutomationElement(element));
             }

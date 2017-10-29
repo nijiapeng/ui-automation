@@ -55,7 +55,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getNextSiblingElement(pElement, pChild);
 
         try {
-	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
+	        return new AutomationElement(IUIAutomationElementConverter.pointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -77,7 +77,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getPreviousSiblingElement(pElement, pChild);
 
         try {
-	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
+	        return new AutomationElement(IUIAutomationElementConverter.pointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -98,7 +98,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getLastChildElement(pElement, pChild);
 
         try {
-	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
+	        return new AutomationElement(IUIAutomationElementConverter.pointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -118,7 +118,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getFirstChildElement(pElement, pChild);
         
         try {
-	        return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pChild));
+	        return new AutomationElement(IUIAutomationElementConverter.pointerToInterface(pChild));
         } catch (NullPointerException ex) {
         	return null;
         }
@@ -139,7 +139,7 @@ public class AutomationTreeWalker extends BaseAutomation {
         this.walker.getParentElement(pElement, pParent);
 
         try {
-            return new AutomationElement(IUIAutomationElementConverter.PointerToInterface(pParent));
+            return new AutomationElement(IUIAutomationElementConverter.pointerToInterface(pParent));
         } catch (NullPointerException ex) {
             return null;
         }

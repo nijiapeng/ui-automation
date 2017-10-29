@@ -32,7 +32,18 @@ import com.sun.jna.ptr.PointerByReference;
 public class IUIAutomationElementConverter {
     private static int UIAutomationElement_Methods  = 85; // 0-2 IUnknown, 3-84 IUIAutomationElement3
 
-    public static IUIAutomationElement PointerToInterface(final PointerByReference ptr) {
+    private static int IUNKNOWN_QUERY_INTERFACE = 0;
+    private static int IUNKNOWN_ADDREF = 1;
+    private static int IUNKNOWN_RELEASE = 2;
+
+    private static int IUIAUTOMATIONELEMENT_SETFPCUS = 3;
+    private static int IUIAUTOMATIONELEMENT_GETRUNTIME_ID = 4;
+    private static int IUIAUTOMATIONELEMENT_FINDFIRST = 5;
+    private static int IUIAUTOMATIONELEMENT_FINDALL = 8;
+    private static int IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUE = 10;
+    private static int IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUEEX = 11;
+
+    public static IUIAutomationElement pointerToInterface(final PointerByReference ptr) {
         final Pointer interfacePointer = ptr.getValue();
         final Pointer vTablePointer = interfacePointer.getPointer(0);
         final Pointer[] vTable = new Pointer[UIAutomationElement_Methods];
@@ -46,38 +57,38 @@ public class IUIAutomationElementConverter {
             // IUnknown
             @Override
             public WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference) {
-                Function f = getFunction(0);
+                Function f = getFunction(IUNKNOWN_QUERY_INTERFACE);
                 return new WinNT.HRESULT(f.invokeInt(new Object[]{interfacePointer, byValue, pointerByReference}));
             }
 
             @Override
             public int AddRef() {
-                Function f = this.getFunction(1);
+                Function f = this.getFunction(IUNKNOWN_ADDREF);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
             public int Release() {
-                Function f = this.getFunction(2);
+                Function f = this.getFunction(IUNKNOWN_RELEASE);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
             public int setFocus() {
-                Function f = this.getFunction(3);
+                Function f = this.getFunction(IUIAUTOMATIONELEMENT_SETFPCUS);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
             public int getRuntimeId (/* SAFEARRAY */ PointerByReference runtimeId) {
-                Function f = this.getFunction(4);
+                Function f = this.getFunction(IUIAUTOMATIONELEMENT_GETRUNTIME_ID);
                 return f.invokeInt(new Object[]{interfacePointer, runtimeId});
             }
 
             public int findFirst(TreeScope scope, Pointer condition, PointerByReference sr) {
-                Function f = this.getFunction(5);
+                Function f = this.getFunction(IUIAUTOMATIONELEMENT_FINDFIRST);
                 return f.invokeInt(new Object[]{interfacePointer, scope.value, condition, sr});
             }
 
             public int findAll(TreeScope scope, Pointer condition, PointerByReference sr) {
-                Function f = this.getFunction(6);
+                Function f = this.getFunction(IUIAUTOMATIONELEMENT_FINDALL);
                 return f.invokeInt(new Object[]{interfacePointer, scope.value, condition, sr});
             }
 
@@ -97,12 +108,12 @@ public class IUIAutomationElementConverter {
 //                }
 
             public int getCurrentPropertyValue(int propertyId, Variant.VARIANT.ByReference value) {
-                Function f = this.getFunction(10);
+                Function f = this.getFunction(IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUE);
                 return f.invokeInt(new Object[]{interfacePointer, propertyId, value});
             }
 
             public int getCurrentPropertyValueEx (/* [in] */ int propertyId, /* [in] */ WinDef.BOOL ignoreDefaultValue, Variant.VARIANT retVal) {
-                Function f = this.getFunction(11);
+                Function f = this.getFunction(IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUEEX);
                 return f.invokeInt(new Object[]{interfacePointer, propertyId, ignoreDefaultValue, retVal});
             }
 
