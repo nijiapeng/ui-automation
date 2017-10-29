@@ -29,9 +29,12 @@ import com.sun.jna.ptr.PointerByReference;
  * Date 05/06/2017.
  */
 public class IUIAutomationConverter {
-    private static int IUNKNOWN_QUERY_INTERFACE = 0;
-    private static int IUNKNOWN_ADDREF = 1;
-    private static int IUNKNOWN_RELEASE = 2;
+    /** Offset of the query interface method. */
+    private static int queryInterfaceOffset = 0;
+    /** Offset of the addref method. */
+    private static int addRefOffset = 1;
+    /** Offset of the release method. */
+    private static int releaseOffset = 2;
 
     private static int UIA_COMPARE_ELEMENTS = 3;
     private static int UIA_COMPARE_RUNTIME_IDS = 4;
@@ -66,18 +69,18 @@ public class IUIAutomationConverter {
 
             @Override
             public WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference) {
-                Function f = Function.getFunction(vTable[IUNKNOWN_QUERY_INTERFACE], Function.ALT_CONVENTION);
+                Function f = Function.getFunction(vTable[queryInterfaceOffset], Function.ALT_CONVENTION);
                 return new WinNT.HRESULT(f.invokeInt(new Object[]{myInterfacePointer, byValue, pointerByReference}));
             }
 
             @Override
             public int AddRef() {
-                Function f = Function.getFunction(vTable[IUNKNOWN_ADDREF], Function.ALT_CONVENTION);
+                Function f = Function.getFunction(vTable[addRefOffset], Function.ALT_CONVENTION);
                 return f.invokeInt(new Object[]{myInterfacePointer});
             }
 
             public int Release() {
-                Function f = Function.getFunction(vTable[IUNKNOWN_RELEASE], Function.ALT_CONVENTION);
+                Function f = Function.getFunction(vTable[releaseOffset], Function.ALT_CONVENTION);
                 return f.invokeInt(new Object[]{myInterfacePointer});
             }
 

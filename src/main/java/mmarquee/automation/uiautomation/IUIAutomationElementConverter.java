@@ -29,24 +29,43 @@ import com.sun.jna.ptr.PointerByReference;
  *
  * Pulled out to allow better isolation and testing
  */
-public class IUIAutomationElementConverter {
-    private static int UIAutomationElement_Methods  = 85; // 0-2 IUnknown, 3-84 IUIAutomationElement3
+class IUIAutomationElementConverter {
+    /**
+     * Number of methods.
+     *
+     * 0-2 IUnknown, 3-84 IUIAutomationElement3
+     */
+    private static int uiAutomationelementMethods = 85;
 
-    private static int IUNKNOWN_QUERY_INTERFACE = 0;
-    private static int IUNKNOWN_ADDREF = 1;
-    private static int IUNKNOWN_RELEASE = 2;
+    /** Offset of the query interface method. */
+    private static int queryInterfaceOffset = 0;
+    /** Offset of the addref method. */
+    private static int addRefOffset = 1;
+    /** Offset of the release method. */
+    private static int releaseOffset = 2;
 
-    private static int IUIAUTOMATIONELEMENT_SETFPCUS = 3;
-    private static int IUIAUTOMATIONELEMENT_GETRUNTIME_ID = 4;
-    private static int IUIAUTOMATIONELEMENT_FINDFIRST = 5;
-    private static int IUIAUTOMATIONELEMENT_FINDALL = 8;
-    private static int IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUE = 10;
-    private static int IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUEEX = 11;
+    private static int setFocusOffset = 3;
+    private static int getRuntimeIdOffset = 4;
+    private static int findFirstOffset = 5;
+    private static int findAllOffset = 8;
+    private static int getCurrentPropertyValueOffset = 10;
+    private static int getCurrentPropertyValueExOffset = 11;
+    private static int getCurrentPatternAsOffset = 14;
+    private static int getCurrentPatternOffset = 16;
+    private static int getCurrentProcessIdOffset = 20;
 
+    private static int getClickablePointOffset = 84;
+
+    /**
+     * Gets the interface from the raw pointer.
+     *
+     * @param ptr The raw pointer
+     * @return The implementing interface
+     */
     public static IUIAutomationElement pointerToInterface(final PointerByReference ptr) {
         final Pointer interfacePointer = ptr.getValue();
         final Pointer vTablePointer = interfacePointer.getPointer(0);
-        final Pointer[] vTable = new Pointer[UIAutomationElement_Methods];
+        final Pointer[] vTable = new Pointer[uiAutomationelementMethods];
         vTablePointer.read(0, vTable, 0, vTable.length);
         return new IUIAutomationElement() {
 
@@ -57,38 +76,38 @@ public class IUIAutomationElementConverter {
             // IUnknown
             @Override
             public WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference) {
-                Function f = getFunction(IUNKNOWN_QUERY_INTERFACE);
+                Function f = getFunction(queryInterfaceOffset);
                 return new WinNT.HRESULT(f.invokeInt(new Object[]{interfacePointer, byValue, pointerByReference}));
             }
 
             @Override
             public int AddRef() {
-                Function f = this.getFunction(IUNKNOWN_ADDREF);
+                Function f = this.getFunction(addRefOffset);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
             public int Release() {
-                Function f = this.getFunction(IUNKNOWN_RELEASE);
+                Function f = this.getFunction(releaseOffset);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
             public int setFocus() {
-                Function f = this.getFunction(IUIAUTOMATIONELEMENT_SETFPCUS);
+                Function f = this.getFunction(setFocusOffset);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
             public int getRuntimeId (/* SAFEARRAY */ PointerByReference runtimeId) {
-                Function f = this.getFunction(IUIAUTOMATIONELEMENT_GETRUNTIME_ID);
+                Function f = this.getFunction(getRuntimeIdOffset);
                 return f.invokeInt(new Object[]{interfacePointer, runtimeId});
             }
 
             public int findFirst(TreeScope scope, Pointer condition, PointerByReference sr) {
-                Function f = this.getFunction(IUIAUTOMATIONELEMENT_FINDFIRST);
+                Function f = this.getFunction(findFirstOffset);
                 return f.invokeInt(new Object[]{interfacePointer, scope.value, condition, sr});
             }
 
             public int findAll(TreeScope scope, Pointer condition, PointerByReference sr) {
-                Function f = this.getFunction(IUIAUTOMATIONELEMENT_FINDALL);
+                Function f = this.getFunction(findAllOffset);
                 return f.invokeInt(new Object[]{interfacePointer, scope.value, condition, sr});
             }
 
@@ -108,12 +127,12 @@ public class IUIAutomationElementConverter {
 //                }
 
             public int getCurrentPropertyValue(int propertyId, Variant.VARIANT.ByReference value) {
-                Function f = this.getFunction(IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUE);
+                Function f = this.getFunction(getCurrentPropertyValueOffset);
                 return f.invokeInt(new Object[]{interfacePointer, propertyId, value});
             }
 
             public int getCurrentPropertyValueEx (/* [in] */ int propertyId, /* [in] */ WinDef.BOOL ignoreDefaultValue, Variant.VARIANT retVal) {
-                Function f = this.getFunction(IUIAUTOMATIONELEMENT_GETCURRENTPROPERTYVALUEEX);
+                Function f = this.getFunction(getCurrentPropertyValueExOffset);
                 return f.invokeInt(new Object[]{interfacePointer, propertyId, ignoreDefaultValue, retVal});
             }
 
@@ -128,7 +147,7 @@ public class IUIAutomationElementConverter {
 //                }
 
             public int getCurrentPatternAs (/* [in] */ int patternId, /* [in] */ Guid.REFIID riid, /* [retval][iid_is][out] */ PointerByReference patternObject) {
-                Function f = this.getFunction(14);
+                Function f = this.getFunction(getCurrentPatternAsOffset);
                 return f.invokeInt(new Object[]{interfacePointer, patternId, riid, patternObject});
             }
 
@@ -138,7 +157,7 @@ public class IUIAutomationElementConverter {
 //                }
 
             public int getCurrentPattern(Integer patternId, PointerByReference pbr) {
-                Function f = this.getFunction(16);
+                Function f = this.getFunction(getCurrentPatternOffset);
                 return f.invokeInt(new Object[]{interfacePointer, patternId, pbr});
             }
 
@@ -158,7 +177,7 @@ public class IUIAutomationElementConverter {
 //                }
 
             public int getCurrentProcessId (IntByReference retVal) {
-                Function f = this.getFunction(20);
+                Function f = this.getFunction(getCurrentProcessIdOffset);
                 return f.invokeInt(new Object[]{interfacePointer, retVal});
             }
 
@@ -473,7 +492,7 @@ public class IUIAutomationElementConverter {
 ///                }
 
             public int getClickablePoint (WinDef.POINT.ByReference clickable, WinDef.BOOLByReference gotClickable) {
-                Function f = this.getFunction(84);
+                Function f = this.getFunction(getClickablePointOffset);
                 return f.invokeInt(new Object[]{interfacePointer, clickable, gotClickable});
             }
 

@@ -27,6 +27,14 @@ import com.sun.jna.ptr.PointerByReference;
  * Date 05/06/2017.
  */
 public class IUIAutomationElementArrayConverter {
+
+    /** Offset of the query interface method. */
+    private static int queryInterfaceOffset = 0;
+    /** Offset of the addref method. */
+    private static int addRefOffset = 1;
+    /** Offset of the release method. */
+    private static int releaseOffset = 2;
+
     private static int UIAutomationElementArray_Methods = 5; // 0-2 IUnknown, 3-4 IUIAutomationElement3
 
     public static IUIAutomationElementArray pointerToInterface(final PointerByReference ptr) {
@@ -38,18 +46,18 @@ public class IUIAutomationElementArrayConverter {
             // IUnknown
             @Override
             public WinNT.HRESULT QueryInterface(Guid.REFIID byValue, PointerByReference pointerByReference) {
-                Function f = Function.getFunction(vTable[0], Function.ALT_CONVENTION);
+                Function f = Function.getFunction(vTable[queryInterfaceOffset], Function.ALT_CONVENTION);
                 return new WinNT.HRESULT(f.invokeInt(new Object[]{interfacePointer, byValue, pointerByReference}));
             }
 
             @Override
             public int AddRef() {
-                Function f = Function.getFunction(vTable[1], Function.ALT_CONVENTION);
+                Function f = Function.getFunction(vTable[addRefOffset], Function.ALT_CONVENTION);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
             public int Release() {
-                Function f = Function.getFunction(vTable[2], Function.ALT_CONVENTION);
+                Function f = Function.getFunction(vTable[releaseOffset], Function.ALT_CONVENTION);
                 return f.invokeInt(new Object[]{interfacePointer});
             }
 
